@@ -1,5 +1,5 @@
 # CS-2340 Spring 2018 Section A
-# SCRUM Bucket
+# Team 22: SCRUM Bucket
 | Name  | Email | Role |
 | ------------- | ------------- | ------------- |
 | Wendell Baptiste  | wbaptiste6@gatech.edu | Coordinator |
