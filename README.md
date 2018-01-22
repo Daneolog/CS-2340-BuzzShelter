@@ -2,7 +2,7 @@
 # [Team name]
 | Name  | Email | Role |
 | ------------- | ------------- | ------------- |
-| Wendell Baptiste  | wbaptiste6@gatech.edu | TBA |
-| John Beckner  | jbeckner3@gatech.edu  | TBA |
-| Camille Pettit  | cpettit6@gatech.edu | TBA |
-| Sam Jijina  | sam.jijina@gatech.edu | TBA |
+| Wendell Baptiste  | wbaptiste6@gatech.edu | Coordinator |
+| John Beckner  | jbeckner3@gatech.edu  | Specalist |
+| Camille Pettit  | cpettit6@gatech.edu | Resource investigator |
+| Sam Jijina  | sam.jijina@gatech.edu | Teamworker |
