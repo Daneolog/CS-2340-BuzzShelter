@@ -3,6 +3,6 @@
 | Name  | Email | Role |
 | ------------- | ------------- | ------------- |
 | Wendell Baptiste  | wbaptiste6@gatech.edu | Coordinator |
-| John Beckner  | jbeckner3@gatech.edu  | Specalist |
+| John Beckner  | jbeckner3@gatech.edu  | Specialist |
 | Camille Pettit  | cpettit6@gatech.edu | Resource investigator |
-| Sam Jijina  | sam.jijina@gatech.edu | Teamworker |
+| Sam Jijina  | sam.jijina@gatech.edu | Team Worker |
