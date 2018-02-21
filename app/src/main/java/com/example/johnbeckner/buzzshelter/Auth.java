@@ -14,6 +14,10 @@ public class Auth {
      * @return boolean value, true = user authenticated
      */
     public static boolean authenticate(String username, String password) {
+        if (users == null || users.size() == 0) {
+            // no users exist
+            return false;
+        }
         for(User user : users) {
             if(username.equalsIgnoreCase(user.getId())) {
                 if(password.equals(user.getPassword())) {
@@ -24,12 +28,25 @@ public class Auth {
         return false;
     }
 
-    public static void addUser(String name, String ID, String password) {
-        User temp = new User(name, ID, password);
+    public static void addUser(String name, String ID, String password, UserType userType) {
+        if (users == null) {
+            users = new ArrayList<>();
+        }
+        User temp = new User(name, ID, password, userType);
         users.add(temp);
     }
 
+    public static void addUser(User newUser) {
+        if (users == null) {
+            users = new ArrayList<>();
+        }
+        users.add(newUser);
+    }
+
     public static boolean removeUser(String ID) {
+        if (users == null || users.size() == 0) {
+            return false;
+        }
         int index = -1;
         for (User user : users) {
             if (ID.equals(user.getId())) {

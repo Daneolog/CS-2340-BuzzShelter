@@ -8,11 +8,20 @@ public class User {
     private String name;
     private String id;
     private String password;
+    private UserType userType;
 
     public User(String name, String id, String password) {
         this.name = name;
         this.id = id;
         this.password = password;
+        this.userType = UserType.GENERAL_USER;
+    }
+
+    public User(String name, String id, String password, UserType userType) {
+        this.name = name;
+        this.id = id;
+        this.password = password;
+        this.userType = userType;
     }
 
     public String getName() {
@@ -37,6 +46,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
     @Override
@@ -66,4 +83,5 @@ public class User {
         hash = 47 * hash + password.hashCode();
         return hash;
     }
+
 }
