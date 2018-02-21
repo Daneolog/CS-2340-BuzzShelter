@@ -22,5 +22,12 @@ public class LaunchActivity extends AppCompatActivity {
                 startActivity(new Intent(LaunchActivity.this, LoginActivity.class));
             }
         });
+
+        mRegister_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LaunchActivity.this, Registration.class));
+            }
+        });
     }
 }
