@@ -1,4 +1,6 @@
 package com.example.johnbeckner.buzzshelter;
+import android.location.Address;
+
 import java.util.Scanner;
 import java.io.File;
 import java.util.ArrayList;
@@ -9,23 +11,24 @@ import java.util.ArrayList;
 
 public class Shelter {
     private String shelterName;
-    private int capacity;
-    private String gender;
+    private String capacity;
+    private String Restrictions;
     private double longitude;
     private double latitude;
     private String address;
-    private int phoneNumber;
+    private String phoneNumber;
+    private String notes;
 
-    public Shelter(String shelterName, int capacity, String gender,
-        double longitude, double latitude, String address, int phoneNumber) {
+    public Shelter(String shelterName, String capacity, String Restrictions,
+        double longitude, double latitude, String address, String phoneNumber, String notes) {
         this.shelterName = shelterName;
         this.capacity = capacity;
-        this.gender = gender;
+        this.Restrictions = Restrictions;
         this.longitude = longitude;
         this.latitude = latitude;
         this.address = address;
         this.phoneNumber = phoneNumber;
-
+        this.notes = notes;
     }
     public Shelter() {
 
@@ -37,17 +40,17 @@ public class Shelter {
     public void setShelterName(String name) {
         shelterName = name;
     }
-    public int getCapacity() {
+    public String getCapacity() {
         return capacity;
     }
-    public void setCapacity(int data) {
+    public void setCapacity(String data) {
         capacity = data;
     }
-    public String getGender() {
-        return gender;
+    public String getRestrictions() {
+        return Restrictions;
     }
-    public void setGender(String data) {
-        gender = data;
+    public void setRestrictions(String data) {
+        Restrictions = data;
     }
     public double getLongitude() {
         return longitude;
@@ -61,13 +64,42 @@ public class Shelter {
     public void setLatitude(double data) {
         latitude = data;
     }
+    public void setAddress(String address) {
+        this.address = address;
+    }
     public String getAddress() {
         return address;
     }
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
-    public void setPhoneNumber(int data) {
+    public void setPhoneNumber(String data) {
         phoneNumber = data;
+    }
+    public void addNotes(String note) {
+        if (this.notes == null) {
+            this.notes = "";
+        }
+        this.notes = this.notes  + " " + note;
+    }
+    public String getNotes() {
+        return notes;
+    }
+
+    public String toString() {
+        return shelterName;
+    }
+
+    public String[] getInfo() {
+        return new String[] {
+                "Shelter Name: " + shelterName,
+                "Capacity: " + capacity,
+                "Restrictions: " + Restrictions,
+                "Longitude: " + Double.toString(longitude),
+                "Latitude:" + Double.toString(latitude),
+                "Address: " + address,
+                "Phone Number: " + phoneNumber,
+                "Notes: " + notes,
+        };
     }
 }
