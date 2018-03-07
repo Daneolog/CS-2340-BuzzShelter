@@ -1,5 +1,7 @@
 package com.example.johnbeckner.buzzshelter;
 import android.location.Address;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.Scanner;
 import java.io.File;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
  *
  */
 
-public class Shelter {
+public class Shelter implements Parcelable{
     private String shelterName;
     private String capacity;
     private String Restrictions;
@@ -33,6 +35,33 @@ public class Shelter {
     public Shelter() {
 
     }
+
+    protected Shelter(Parcel in) {
+        String[] data = new String[8];
+
+        in.readStringArray(data);
+
+        this.shelterName = data[0];
+        this.capacity = data[1];
+        this.Restrictions = data[2];
+        this.longitude = Double.parseDouble(data[3]);
+        this.latitude = Double.parseDouble(data[4]);
+        this.address = data[5];
+        this.phoneNumber = data[6];
+        this.notes = data[7];
+    }
+
+    public static final Creator<Shelter> CREATOR = new Creator<Shelter>() {
+        @Override
+        public Shelter createFromParcel(Parcel in) {
+            return new Shelter(in);
+        }
+
+        @Override
+        public Shelter[] newArray(int size) {
+            return new Shelter[size];
+        }
+    };
 
     public String getShelterName() {
         return shelterName;
@@ -101,5 +130,23 @@ public class Shelter {
                 "Phone Number: " + phoneNumber,
                 "Notes: " + notes,
         };
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeStringArray(new String[] {
+                this.shelterName,
+                this.capacity,
+                this.Restrictions,
+                Double.toString(this.longitude),
+                Double.toString(this.latitude),
+                this.address,
+                this.phoneNumber,
+                this.notes});
     }
 }

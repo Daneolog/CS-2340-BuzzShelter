@@ -18,7 +18,8 @@ import java.util.ArrayList;
 
 public class ShelterList {
 
-    private static ArrayList<Shelter> Shelters;
+    private static ArrayList<Shelter> Shelters = new ArrayList<>();
+    private static ArrayList<Shelter> FilteredList = new ArrayList<>();
 
     public static void addShelter (Shelter data) {
         if (data == null) {
@@ -83,8 +84,7 @@ public class ShelterList {
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             if (br != null) {
@@ -97,8 +97,53 @@ public class ShelterList {
         }
     }
 
+
+
     public static ArrayList<Shelter> getShelters() {
         return Shelters;
+    }
+    public static ArrayList<Shelter> getFilteredList() {
+        return FilteredList;
+    }
+
+    public static void filterShelters(String name, String gender, String ageRange) {
+
+        if (name == null) {
+            throw new IllegalArgumentException("Name cannot be null");
+        }
+        if (gender == null) {
+            throw new IllegalArgumentException("gender cannot be null");
+        }
+        if (ageRange == null) {
+            throw new IllegalArgumentException("age range cannot be null");
+        }
+
+        FilteredList = new ArrayList<>(Shelters);
+
+        for (Shelter s : Shelters) {
+            // filter by name
+            if (!(s.getShelterName().contains(name))) {
+                FilteredList.remove(s);
+            }
+            // filter gender
+            if (gender.equals("Anyone")) {
+                gender = "";
+            }
+            if (!(s.getRestrictions().contains(gender))) {
+                FilteredList.remove(s);
+            }
+
+            // filter age range
+            if (ageRange.equals("Anyone")) {
+                ageRange = "";
+            }
+            if (!(s.getRestrictions().toLowerCase()
+                    .contains(ageRange.toLowerCase()))) {
+                FilteredList.remove(s);
+            }
+        }
+
+        Shelters = FilteredList;
     }
 
 }
