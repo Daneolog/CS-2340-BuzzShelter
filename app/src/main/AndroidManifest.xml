@@ -23,8 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Registration"></activity>
-        <activity android:name=".ShelterInfoActivity"></activity>
+        <activity android:name=".Registration" />
+        <activity android:name=".ShelterInfoActivity" />
+        <activity android:name=".SearchShelterActivity"></activity>
     </application>
 
 </manifest>
