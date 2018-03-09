@@ -142,8 +142,6 @@ public class ShelterList {
                 FilteredList.remove(s);
             }
         }
-
-        Shelters = FilteredList;
     }
 
 }
