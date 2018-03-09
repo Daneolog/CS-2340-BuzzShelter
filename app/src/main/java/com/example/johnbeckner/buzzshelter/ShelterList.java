@@ -65,6 +65,8 @@ public class ShelterList {
                     }
                 }
 
+                Log.d("Shelter Capacity", ": " + split[2]);
+
                 Shelter newShelter = new Shelter();
                 newShelter.setShelterName(split[1]);
                 newShelter.setCapacity(split[2]);
