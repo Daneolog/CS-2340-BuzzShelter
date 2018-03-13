@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Created by John Beckner on 2/28/2018.
@@ -65,11 +66,18 @@ public class ShelterList {
                     }
                 }
 
-                Log.d("Shelter Capacity", ": " + split[2]);
-
                 Shelter newShelter = new Shelter();
                 newShelter.setShelterName(split[1]);
-                newShelter.setCapacity(split[2]);
+
+                if (split[2] == null || split[2].equals(""))
+                    newShelter.setCapacity(0);
+                else {
+                    Scanner scanner = new Scanner(split[2]);
+                    newShelter.setCapacity(Integer.parseInt(scanner.findInLine("\\d+")));
+                }
+
+                Log.e(newShelter.getCapacity() + "", "");
+
                 newShelter.setRestrictions(split[3]);
                 newShelter.setLongitude((split[4].matches("[0-9]+"))
                         ? Integer.parseInt(split[4]): 0);

@@ -3,6 +3,7 @@ import android.location.Address;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
 import java.util.ArrayList;
@@ -11,21 +12,32 @@ import java.util.ArrayList;
  *
  */
 
-public class Shelter implements Parcelable{
+public class Shelter implements Parcelable {
+    enum ShelterType {
+        SINGLE    (1),
+        FAMILY    (2),
+        APARTMENT (4);
+
+        private int numBeds;
+        ShelterType(int numBeds) {
+            this.numBeds = numBeds;
+        }
+    }
+
     private String shelterName;
-    private String capacity;
-    private String Restrictions;
+    private int capacity;
+    private String restrictions;
     private double longitude;
     private double latitude;
     private String address;
     private String phoneNumber;
     private String notes;
 
-    public Shelter(String shelterName, String capacity, String Restrictions,
+    public Shelter(String shelterName, int capacity, String restrictions,
         double longitude, double latitude, String address, String phoneNumber, String notes) {
         this.shelterName = shelterName;
         this.capacity = capacity;
-        this.Restrictions = Restrictions;
+        this.restrictions = restrictions;
         this.longitude = longitude;
         this.latitude = latitude;
         this.address = address;
@@ -42,8 +54,8 @@ public class Shelter implements Parcelable{
         in.readStringArray(data);
 
         this.shelterName = data[0];
-        this.capacity = data[1];
-        this.Restrictions = data[2];
+        this.capacity = Integer.parseInt(data[1]);
+        this.restrictions = data[2];
         this.longitude = Double.parseDouble(data[3]);
         this.latitude = Double.parseDouble(data[4]);
         this.address = data[5];
@@ -69,17 +81,17 @@ public class Shelter implements Parcelable{
     public void setShelterName(String name) {
         shelterName = name;
     }
-    public String getCapacity() {
+    public int getCapacity() {
         return capacity;
     }
-    public void setCapacity(String data) {
+    public void setCapacity(int data) {
         capacity = data;
     }
     public String getRestrictions() {
-        return Restrictions;
+        return restrictions;
     }
     public void setRestrictions(String data) {
-        Restrictions = data;
+        restrictions = data;
     }
     public double getLongitude() {
         return longitude;
@@ -123,7 +135,7 @@ public class Shelter implements Parcelable{
         return new String[] {
                 "Shelter Name: " + shelterName,
                 "Capacity: " + capacity,
-                "Restrictions: " + Restrictions,
+                "Restrictions: " + restrictions,
                 "Longitude: " + Double.toString(longitude),
                 "Latitude:" + Double.toString(latitude),
                 "Address: " + address,
@@ -141,12 +153,24 @@ public class Shelter implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeStringArray(new String[] {
                 this.shelterName,
-                this.capacity,
-                this.Restrictions,
+                "" + this.capacity,
+                this.restrictions,
                 Double.toString(this.longitude),
                 Double.toString(this.latitude),
                 this.address,
                 this.phoneNumber,
                 this.notes});
+    }
+
+    public void reserve(int reserve) {
+        if (capacity < reserve) {
+            throw new RuntimeException("no beds left");
+        } else {
+            capacity -= reserve;
+        }
+    }
+
+    public void cancelReserve(int reserve) {
+        capacity += reserve;
     }
 }

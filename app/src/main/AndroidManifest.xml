@@ -15,17 +15,18 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LaunchActivity">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Registration" />
+        <activity android:name=".LaunchActivity" />
+        <activity android:name=".RegistrationActivity" />
         <activity android:name=".ShelterInfoActivity" />
-        <activity android:name=".SearchShelterActivity"></activity>
+        <activity android:name=".SearchShelterActivity" />
+        <activity android:name=".ReserveActivity"></activity>
     </application>
 
 </manifest>

@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Shelter pressed = (Shelter) ShelterLV.getItemAtPosition(i);
                 Intent intent = new Intent(getBaseContext(), ShelterInfoActivity.class);
-                intent.putExtra("shelter Info", pressed.getInfo());
+                intent.putExtra("shelter_info", pressed);
                 startActivity(intent);
             }
         });

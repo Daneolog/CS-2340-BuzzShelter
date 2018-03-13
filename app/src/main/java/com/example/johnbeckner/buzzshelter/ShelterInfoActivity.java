@@ -1,8 +1,12 @@
 package com.example.johnbeckner.buzzshelter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Arrays;
@@ -10,34 +14,52 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class ShelterInfoActivity extends AppCompatActivity {
+    Shelter info;
+
+    TextView name;
+    TextView capacity;
+    TextView address;
+    TextView restrictions;
+    TextView phone;
+    Button reserveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_info);
 
-        TextView name = (TextView) findViewById(R.id.ShelterName);
-        TextView capacity = (TextView) findViewById(R.id.shelterCap);
-        TextView address = (TextView) findViewById(R.id.shelterAddress);
-        TextView restrictions = (TextView) findViewById(R.id.shelterRes);
-        TextView phone = (TextView) findViewById(R.id.shelterPhone);
+        name = (TextView) findViewById(R.id.shelterName);
+        capacity = (TextView) findViewById(R.id.shelterCap);
+        address = (TextView) findViewById(R.id.shelterAddress);
+        restrictions = (TextView) findViewById(R.id.shelterRes);
+        phone = (TextView) findViewById(R.id.shelterPhone);
+        reserveButton = findViewById(R.id.reserveButton);
 
-        String[] info = getIntent().getStringArrayExtra("shelter Info");
+        info = getIntent().getParcelableExtra("shelter_info");
+        setShelterInfo();
+    }
 
-        /*
-        info[0] = shelter name
-        info[1] = capacity
-        info[2] = Restrictions
-        info[3] = longitude
-        info[4] = latitude
-        info[5] = address
-        info[6] = phoneNumber
-        info[7] = notes
-         */
-        name.setText(info[0]);
-        capacity.setText(info[1]);
-        address.setText(info[5]);
-        restrictions.setText(info[2]);
-        phone.setText(info[6]);
+    private void setShelterInfo() {
+        name.setText(info.getShelterName());
+        capacity.setText(info.getCapacity() + "");
+        address.setText(info.getAddress());
+        restrictions.setText(info.getRestrictions());
+        phone.setText(info.getPhoneNumber());
+
+        reserveButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ReserveActivity.class);
+            intent.putExtra("shelter_info", info);
+            startActivityForResult(intent, 1);
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                info = data.getParcelableExtra("result");
+                setShelterInfo();
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class Registration extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
     private EditText name;
     private EditText email;
@@ -45,7 +45,7 @@ public class Registration extends AppCompatActivity {
                     if (Auth.authenticate(name.getText().toString(),
                             password.getText().toString())) {
                         // is new user is able to login
-                        startActivity(new Intent(Registration.this, MainActivity.class));
+                        startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
 
                     }
                 }
@@ -56,7 +56,7 @@ public class Registration extends AppCompatActivity {
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Registration.this, LaunchActivity.class));
+                startActivity(new Intent(RegistrationActivity.this, LaunchActivity.class));
                 finish();
             }
         });
