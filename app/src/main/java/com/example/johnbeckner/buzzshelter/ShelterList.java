@@ -1,11 +1,7 @@
 package com.example.johnbeckner.buzzshelter;
 
-import android.util.Log;
-
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -45,6 +41,7 @@ public class ShelterList {
      */
 
     public static void parseDatabase (InputStream database) {
+
         String line = "";
         BufferedReader br = null;
         try {
@@ -64,8 +61,6 @@ public class ShelterList {
                         split[i] = "Not Available";
                     }
                 }
-
-                Log.d("Shelter Capacity", ": " + split[2]);
 
                 Shelter newShelter = new Shelter();
                 newShelter.setShelterName(split[1]);
@@ -102,8 +97,17 @@ public class ShelterList {
     public static ArrayList<Shelter> getShelters() {
         return Shelters;
     }
+
+    public static void setShelters(ArrayList<Shelter> shelters) {
+        Shelters = shelters;
+    }
+
     public static ArrayList<Shelter> getFilteredList() {
         return FilteredList;
+    }
+
+    public static void setFilteredList(ArrayList<Shelter> filteredList) {
+        FilteredList = filteredList;
     }
 
     public static void filterShelters(String name, String gender, String ageRange) {
@@ -143,5 +147,4 @@ public class ShelterList {
             }
         }
     }
-
 }

@@ -1,8 +1,7 @@
 package com.example.johnbeckner.buzzshelter;
 
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
+import android.os.Bundle;;
 import android.widget.TextView;
 
 import java.util.Arrays;

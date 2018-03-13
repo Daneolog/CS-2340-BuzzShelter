@@ -1,13 +1,22 @@
 package com.example.johnbeckner.buzzshelter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Sam on 2/20/18.
  */
 
-public class Auth {
+public class Auth implements Serializable {
     private static ArrayList<User> users;
+
+    public static ArrayList<User> getUsers() {
+        return users;
+    }
+
+    public static void setUsers(ArrayList<User> users) {
+        Auth.users = users;
+    }
 
     /**
      * Searches the list to authenticate user

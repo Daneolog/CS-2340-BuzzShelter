@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.File;
+
 public class LaunchActivity extends AppCompatActivity {
 
     @Override
@@ -15,6 +17,12 @@ public class LaunchActivity extends AppCompatActivity {
 
         final Button mlogin_Button = findViewById(R.id.Login_Button);
         final Button mRegister_Button = findViewById(R.id.Register_Button);
+
+        File file = file = new File(this.getFilesDir(), "data.bin");
+        if (file.exists()) {
+            BinarySerialize bs = new BinarySerialize();
+            bs.loadBinary(file);
+        }
 
         mlogin_Button.setOnClickListener(new View.OnClickListener() {
             @Override
