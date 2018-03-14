@@ -3,6 +3,7 @@ package com.example.johnbeckner.buzzshelter;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,10 +35,17 @@ public class ReserveActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
+                    String user = settings.getString("fullName", "DEFAULT");
+
+                    if (user.equals("DEFAULT")) {
+                        Toast.makeText(this, "You're not logged in!", Toast.LENGTH_LONG).show();
+                        return;
+                    }
 
                     builder.setMessage("Are you sure?")
                             .setPositiveButton("Yes", (di, i) -> {
-                                info.reserve(Integer.parseInt(numReserve.getText().toString()));
+                                info.reserve(user, Integer.parseInt(numReserve.getText().toString()));
                                 Toast.makeText(this, "You have successfully reserved a spot.", Toast.LENGTH_LONG).show();
 
                                 Intent returnIntent = new Intent();

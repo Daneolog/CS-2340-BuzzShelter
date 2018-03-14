@@ -32,6 +32,7 @@ public class Shelter implements Parcelable {
     private String address;
     private String phoneNumber;
     private String notes;
+    private HashMap<String, Integer> reservations;
 
     public Shelter(String shelterName, int capacity, String restrictions,
         double longitude, double latitude, String address, String phoneNumber, String notes) {
@@ -43,9 +44,10 @@ public class Shelter implements Parcelable {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.notes = notes;
+        reservations = new HashMap<>();
     }
     public Shelter() {
-
+        reservations = new HashMap<>();
     }
 
     protected Shelter(Parcel in) {
@@ -61,6 +63,7 @@ public class Shelter implements Parcelable {
         this.address = data[5];
         this.phoneNumber = data[6];
         this.notes = data[7];
+        reservations = (HashMap)in.readSerializable();
     }
 
     public static final Creator<Shelter> CREATOR = new Creator<Shelter>() {
@@ -126,6 +129,14 @@ public class Shelter implements Parcelable {
     public String getNotes() {
         return notes;
     }
+    public void addReservation(String user, int count) {
+        if (reservations.containsKey(user)) {
+            reservations.put(user, reservations.get(user) + count);
+        } else {
+            reservations.put(user, count);
+        }
+    }
+    public HashMap<String, Integer> getReservations() { return reservations; }
 
     public String toString() {
         return shelterName;
@@ -160,13 +171,15 @@ public class Shelter implements Parcelable {
                 this.address,
                 this.phoneNumber,
                 this.notes});
+        parcel.writeSerializable(getReservations());
     }
 
-    public void reserve(int reserve) {
+    public void reserve(String user, int reserve) {
         if (capacity < reserve) {
             throw new RuntimeException("Reserved less than was supposed to...");
         } else {
             capacity -= reserve;
+            addReservation(user, reserve);
         }
     }
 

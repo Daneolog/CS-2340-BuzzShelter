@@ -1,8 +1,10 @@
 package com.example.johnbeckner.buzzshelter;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -43,10 +45,14 @@ public class RegistrationActivity extends AppCompatActivity {
                             (UserType) userTypeValue.getSelectedItem());
                     Auth.addUser(newUser);
                     if (Auth.authenticate(name.getText().toString(),
-                            password.getText().toString())) {
+                            password.getText().toString()) != null) {
                         // is new user is able to login
-                        startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                        SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
+                        SharedPreferences.Editor editor = settings.edit();
 
+                        editor.putString("fullName", newUser.getName());
+                        editor.apply();
+                        startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                     }
                 }
             }

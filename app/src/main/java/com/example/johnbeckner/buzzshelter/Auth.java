@@ -13,19 +13,19 @@ public class Auth {
      * Searches the list to authenticate user
      * @return boolean value, true = user authenticated
      */
-    public static boolean authenticate(String username, String password) {
+    public static User authenticate(String username, String password) {
         if (users == null || users.size() == 0) {
             // no users exist
-            return false;
+            return null;
         }
         for(User user : users) {
             if(username.equalsIgnoreCase(user.getId())) {
                 if(password.equals(user.getPassword())) {
-                    return true;
+                    return user;
                 }
             }
         }
-        return false;
+        return null;
     }
 
     public static void addUser(String name, String ID, String password, UserType userType) {

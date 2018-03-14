@@ -43,7 +43,8 @@ public class ShelterInfoActivity extends AppCompatActivity {
 
     private void setShelterInfo() {
         name.setText(info.getShelterName());
-        capacity.setText(info.getCapacity() + "");
+        capacity.setText(String.format("%d\nThis has been reserved by %s",
+                info.getCapacity(), info.getReservations().keySet().toString()));
         address.setText(info.getAddress());
         restrictions.setText(info.getRestrictions());
         phone.setText(info.getPhoneNumber());
