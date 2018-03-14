@@ -3,6 +3,7 @@ import android.location.Address;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  *
  */
 
-public class Shelter implements Parcelable {
+public class Shelter implements Parcelable, Serializable {
     enum ShelterType {
         SINGLE    (1),
         FAMILY    (2),
