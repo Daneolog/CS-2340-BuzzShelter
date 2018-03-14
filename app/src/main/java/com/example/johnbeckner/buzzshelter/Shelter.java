@@ -164,7 +164,7 @@ public class Shelter implements Parcelable {
 
     public void reserve(int reserve) {
         if (capacity < reserve) {
-            throw new RuntimeException("no beds left");
+            throw new RuntimeException("Reserved less than was supposed to...");
         } else {
             capacity -= reserve;
         }

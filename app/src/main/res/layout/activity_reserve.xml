@@ -26,12 +26,27 @@
         android:ems="10"
         android:inputType="number" />
 
-    <Button
-        android:id="@+id/confirmButton"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/numReserve"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
-        android:text="Reserve" />
+        android:layout_centerVertical="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Reserve" />
+
+        <Button
+            android:id="@+id/dismissButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_weight="1"
+            android:text="Cancel" />
+    </LinearLayout>
+
 </RelativeLayout>

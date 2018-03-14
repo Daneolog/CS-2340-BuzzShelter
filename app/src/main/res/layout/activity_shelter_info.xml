@@ -70,4 +70,12 @@
         android:text="Reserve a Spot!"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="479dp" />
+
+    <Button
+        android:id="@+id/returnButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reserveButton"
+        android:layout_centerHorizontal="true"
+        android:text="Back" />
 </RelativeLayout>

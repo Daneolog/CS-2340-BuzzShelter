@@ -22,6 +22,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
     TextView restrictions;
     TextView phone;
     Button reserveButton;
+    Button returnButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         restrictions = (TextView) findViewById(R.id.shelterRes);
         phone = (TextView) findViewById(R.id.shelterPhone);
         reserveButton = findViewById(R.id.reserveButton);
+        returnButton = findViewById(R.id.returnButton);
 
         info = getIntent().getParcelableExtra("shelter_info");
         setShelterInfo();
@@ -50,6 +52,10 @@ public class ShelterInfoActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ReserveActivity.class);
             intent.putExtra("shelter_info", info);
             startActivityForResult(intent, 1);
+        });
+
+        returnButton.setOnClickListener(v -> {
+            finish();
         });
     }
 
