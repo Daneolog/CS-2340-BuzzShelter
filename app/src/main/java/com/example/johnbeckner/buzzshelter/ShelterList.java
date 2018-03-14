@@ -1,5 +1,7 @@
 package com.example.johnbeckner.buzzshelter;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -110,6 +112,20 @@ public class ShelterList {
 
     public static void setShelters(ArrayList<Shelter> shelters) {
         Shelters = shelters;
+    }
+
+    public static Shelter findShelter(Shelter find) {
+        if (find == null) {
+            throw new IllegalArgumentException("input shelter cannot be null");
+        }
+
+        for (Shelter s : Shelters) {
+            if (s.equals(find)) {
+                return s;
+            }
+        }
+        Log.e("Find Shelter", "input shelter not in list");
+        return new Shelter();
     }
 
     public static ArrayList<Shelter> getFilteredList() {

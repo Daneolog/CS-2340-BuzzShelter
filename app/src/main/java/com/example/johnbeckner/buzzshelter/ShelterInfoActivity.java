@@ -2,6 +2,7 @@ package com.example.johnbeckner.buzzshelter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,7 +53,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
 
         reserveButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, ReserveActivity.class);
-            intent.putExtra("shelter_info", info);
+            intent.putExtra("shelter_info", (Parcelable) info);
             startActivityForResult(intent, 1);
         });
 

@@ -3,10 +3,12 @@ package com.example.johnbeckner.buzzshelter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Shelter pressed = (Shelter) ShelterLV.getItemAtPosition(i);
                 Intent intent = new Intent(getBaseContext(), ShelterInfoActivity.class);
-                intent.putExtra("shelter_info", pressed);
+                intent.putExtra("shelter_info", (Parcelable) pressed);
                 startActivity(intent);
             }
         });
@@ -100,12 +102,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.e("Binary Serialization", "Data Saved");
         bs.saveBinary(file);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        Log.e("Binary Serialization", "Data Saved");
         bs.saveBinary(file);
     }
 }

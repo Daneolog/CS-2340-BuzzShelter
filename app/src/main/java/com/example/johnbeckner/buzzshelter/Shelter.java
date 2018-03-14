@@ -130,6 +130,23 @@ public class Shelter implements Parcelable, Serializable {
     public String getNotes() {
         return notes;
     }
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that == null || !(that instanceof Shelter)) {
+            return false;
+        }
+        Shelter thatShelter = (Shelter) that;
+
+        return (
+                this.getShelterName().equals(thatShelter.getShelterName())
+                && this.getAddress().equals(thatShelter.getAddress())
+                && this.getPhoneNumber().equals(thatShelter.getPhoneNumber()));
+    }
+
     public void addReservation(String user, int count) {
         if (reservations.containsKey(user)) {
             reservations.put(user, reservations.get(user) + count);
