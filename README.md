@@ -6,3 +6,4 @@
 | John Beckner  | jbeckner3@gatech.edu  | Specialist |
 | Camille Pettit  | cpettit6@gatech.edu | Resource investigator |
 | Sam Jijina  | sam.jijina@gatech.edu | Team Worker |
+| Enoch Kumala | enoch.kumala@gatech.edu |  |

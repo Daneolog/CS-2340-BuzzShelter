@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ public class ReserveActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reserve);
 
         final Shelter info = getIntent().getParcelableExtra("shelter_info");
+        Shelter shelterInList = ShelterList.findShelter(info);
         Button reserveButton = findViewById(R.id.confirmButton);
         Button cancelButton = findViewById(R.id.dismissButton);
         EditText numReserve = findViewById(R.id.numReserve);
@@ -30,7 +32,7 @@ public class ReserveActivity extends AppCompatActivity {
                 Toast.makeText(this, "Please enter a number.", Toast.LENGTH_LONG).show();
             } else {
                 int count = Integer.parseInt(input);
-                if (count > info.getCapacity()) {
+                if (count > shelterInList.getCapacity()) {
                     Toast.makeText(this, "Unfortunately, there are not that many available reservations",
                         Toast.LENGTH_LONG).show();
                 } else {
@@ -45,11 +47,11 @@ public class ReserveActivity extends AppCompatActivity {
 
                     builder.setMessage("Are you sure?")
                             .setPositiveButton("Yes", (di, i) -> {
-                                info.reserve(user, Integer.parseInt(numReserve.getText().toString()));
+                                shelterInList.reserve(user, Integer.parseInt(numReserve.getText().toString()));
                                 Toast.makeText(this, "You have successfully reserved a spot.", Toast.LENGTH_LONG).show();
 
                                 Intent returnIntent = new Intent();
-                                returnIntent.putExtra("result", info);
+                                returnIntent.putExtra("result", (Parcelable) shelterInList);
                                 setResult(Activity.RESULT_OK, returnIntent);
                                 finish();
                             })
