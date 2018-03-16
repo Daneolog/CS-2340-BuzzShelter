@@ -90,6 +90,13 @@ public class RegistrationActivity extends AppCompatActivity {
             return false;
         }
 
+        User test = new User(name, email, password);
+
+        if (!(Auth.findUser(test).equals(new User()))) {
+            Toast.makeText(this, "user name already in use", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         return true;
     }
 }

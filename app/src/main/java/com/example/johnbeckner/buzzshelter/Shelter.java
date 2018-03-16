@@ -201,6 +201,19 @@ public class Shelter implements Parcelable, Serializable {
         }
     }
 
+    public boolean dropReservation(String user) {
+        if (user == null) {
+            throw new IllegalArgumentException("Input cannot be null");
+        }
+        if (reservations.containsKey(user)) {
+            capacity += reservations.get(user);
+            reservations.remove(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void cancelReserve(int reserve) {
         capacity += reserve;
     }

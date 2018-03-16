@@ -28,40 +28,53 @@ public class ReserveActivity extends AppCompatActivity {
 
         reserveButton.setOnClickListener(v -> {
             String input = numReserve.getText().toString();
-            if (input.equals("") || !input.matches("\\d")) {
-                Toast.makeText(this, "Please enter a number.", Toast.LENGTH_LONG).show();
-            } else {
-                int count = Integer.parseInt(input);
-                if (count > shelterInList.getCapacity()) {
-                    Toast.makeText(this, "Unfortunately, there are not that many available reservations",
+
+            // this if statement was causing problems
+            // the text field only allows users to input numbers anyway
+            // if more than 1 digit is input, the statement will be true
+//            if (input.equals("") || !input.matches("[0-9]")) {
+//                Toast.makeText(this, "Please enter a number.", Toast.LENGTH_LONG).show();
+//            } else {
+            int count = Integer.parseInt(input);
+            if (count > shelterInList.getCapacity()) {
+                Toast.makeText(this, "Unfortunately, there are not that many available reservations",
                         Toast.LENGTH_LONG).show();
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
-                    String user = settings.getString("fullName", "DEFAULT");
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
+                String user = settings.getString("fullName", "DEFAULT");
+                User temp = new User();
+                temp.setName(user);
+                User userInList = Auth.findUser(temp);
 
-                    if (user.equals("DEFAULT")) {
-                        Toast.makeText(this, "You're not logged in!", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-
-                    builder.setMessage("Are you sure?")
-                            .setPositiveButton("Yes", (di, i) -> {
-                                shelterInList.reserve(user, Integer.parseInt(numReserve.getText().toString()));
-                                Toast.makeText(this, "You have successfully reserved a spot.", Toast.LENGTH_LONG).show();
-
-                                Intent returnIntent = new Intent();
-                                returnIntent.putExtra("result", (Parcelable) shelterInList);
-                                setResult(Activity.RESULT_OK, returnIntent);
-                                finish();
-                            })
-                            .setNegativeButton("No", (di, i) -> {
-                                Toast.makeText(this, "You have not reserved a spot.", Toast.LENGTH_LONG).show();
-                            });
-
-                    builder.show();
+                if (userInList.getName().equals("DEFAULT")) {
+                    Toast.makeText(this, "You're not logged in!", Toast.LENGTH_LONG).show();
+                    return;
                 }
+
+                if (userInList.isHasReservation()) {
+                    Toast.makeText(this, "You already have a reservation", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                builder.setMessage("Are you sure?")
+                        .setPositiveButton("Yes", (di, i) -> {
+                            shelterInList.reserve(user, Integer.parseInt(numReserve.getText().toString()));
+                            userInList.setHasReservation(true);
+                            Toast.makeText(this, "You have successfully reserved a spot.", Toast.LENGTH_LONG).show();
+
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("result", (Parcelable) shelterInList);
+                            setResult(Activity.RESULT_OK, returnIntent);
+                            finish();
+                        })
+                        .setNegativeButton("No", (di, i) -> {
+                            Toast.makeText(this, "You have not reserved a spot.", Toast.LENGTH_LONG).show();
+                        });
+
+                builder.show();
             }
+//            }
         });
 
         cancelButton.setOnClickListener(v -> {

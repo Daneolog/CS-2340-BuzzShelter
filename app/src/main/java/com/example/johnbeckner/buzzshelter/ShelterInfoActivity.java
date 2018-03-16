@@ -2,18 +2,14 @@ package com.example.johnbeckner.buzzshelter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.os.Bundle;;
+;
 import android.widget.TextView;
-
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Set;
+import android.widget.Toast;
 
 public class ShelterInfoActivity extends AppCompatActivity {
     Shelter info;
@@ -24,6 +20,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
     TextView restrictions;
     TextView phone;
     Button reserveButton;
+    Button dropReserveButton;
     Button returnButton;
 
     @Override
@@ -37,6 +34,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         restrictions = (TextView) findViewById(R.id.shelterRes);
         phone = (TextView) findViewById(R.id.shelterPhone);
         reserveButton = findViewById(R.id.reserveButton);
+        dropReserveButton = (Button) findViewById(R.id.DropReservation);
         returnButton = findViewById(R.id.returnButton);
 
         info = getIntent().getParcelableExtra("shelter_info");
@@ -50,6 +48,21 @@ public class ShelterInfoActivity extends AppCompatActivity {
         address.setText(info.getAddress());
         restrictions.setText(info.getRestrictions());
         phone.setText(info.getPhoneNumber());
+
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
+        String user = settings.getString("fullName", "DEFAULT");
+
+        dropReserveButton.setOnClickListener(v -> {
+            if (info.dropReservation(user)) {
+                User temp = new User();
+                temp.setName(user);
+                Auth.findUser(temp).setHasReservation(false);
+                Toast.makeText(this, "Successfully dropped reservation", Toast.LENGTH_LONG).show();
+                recreate();
+            } else {
+                Toast.makeText(this, "You don't have a reservation at this shelter.", Toast.LENGTH_LONG).show();
+            }
+        });
 
         reserveButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, ReserveActivity.class);
