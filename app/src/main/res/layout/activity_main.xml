@@ -37,12 +37,18 @@
 
     <Button
         android:id="@+id/FilterButton"
-        style="@android:style/Widget.Holo.Light.Button"
-        android:layout_width="118dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Filter"
-        android:textAlignment="center"
         app:layout_anchor="@+id/appBarLayout"
-        app:layout_anchorGravity="right|center" />
+        app:layout_anchorGravity="right|top" />
+
+    <Button
+        android:id="@+id/Map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Map"
+        app:layout_anchor="@+id/appBarLayout"
+        app:layout_anchorGravity="top|center" />
 
 </android.support.design.widget.CoordinatorLayout>

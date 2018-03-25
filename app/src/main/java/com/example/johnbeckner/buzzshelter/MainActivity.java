@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView ShelterLV;
     private Button Filter;
+    private Button Map;
     private File file;
     private BinarySerialize bs;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         Filter = (Button) findViewById(R.id.FilterButton);
         ArrayList<Shelter> filteredList = new ArrayList<>();
         file = new File(this.getFilesDir(), "data.bin");
+        Map = (Button) findViewById(R.id.Map);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey("Filtered Shelter List")) {
@@ -93,6 +95,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, SearchShelterActivity.class));
+            }
+        });
+
+        Map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, MapsActivity.class));
             }
         });
     }
