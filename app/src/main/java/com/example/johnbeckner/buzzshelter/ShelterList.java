@@ -1,5 +1,7 @@
 package com.example.johnbeckner.buzzshelter;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,6 +44,8 @@ public class ShelterList {
 
     public static void parseDatabase (InputStream database) {
 
+        Shelters = new ArrayList<>();
+
         String line = "";
         BufferedReader br = null;
         try {
@@ -55,6 +59,9 @@ public class ShelterList {
                 return;
             }
             while ((line = br.readLine()) != null) {
+
+                Log.e("line", line.toString());
+
                 String[] split = line.split(";");
                 for (int i = 0; i < split.length; i++) {
                     if (split[i] == "" || split[i] == null) {
@@ -88,6 +95,9 @@ public class ShelterList {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                Log.e("Shelter list size", Shelters.size() + "");
+
             }
         }
     }
@@ -111,6 +121,8 @@ public class ShelterList {
     }
 
     public static void filterShelters(String name, String gender, String ageRange) {
+
+        FilteredList = new ArrayList<>();
 
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null");
