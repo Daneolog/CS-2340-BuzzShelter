@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ArrayList<Shelter> filteredList;
+
     private ListView ShelterLV;
     private Button Filter;
     private Button Map;
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ShelterLV = (ListView) findViewById(R.id.List);
         Filter = (Button) findViewById(R.id.FilterButton);
-        ArrayList<Shelter> filteredList = new ArrayList<>();
+        filteredList = new ArrayList<>();
         file = new File(this.getFilesDir(), "data.bin");
         Map = (Button) findViewById(R.id.Map);
 
@@ -94,13 +96,17 @@ public class MainActivity extends AppCompatActivity {
         Filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, SearchShelterActivity.class));
+                Intent intent = new Intent(getBaseContext(), SearchShelterActivity.class);
+                intent.putExtra("shelterlist", filteredList);
+                startActivity(intent);
             }
         });
 
         Map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), SearchShelterActivity.class);
+                intent.putExtra("shelter List", filteredList);
                 startActivity(new Intent(MainActivity.this, MapsActivity.class));
             }
         });

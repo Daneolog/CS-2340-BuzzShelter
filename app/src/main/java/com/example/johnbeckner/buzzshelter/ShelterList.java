@@ -66,10 +66,10 @@ public class ShelterList {
                 newShelter.setShelterName(split[1]);
                 newShelter.setCapacity(split[2]);
                 newShelter.setRestrictions(split[3]);
-                newShelter.setLongitude((split[4].matches("[0-9]+"))
-                        ? Integer.parseInt(split[4]): 0);
-                newShelter.setLatitude((split[5].matches("[0-9]+"))
-                        ? Integer.parseInt(split[5]): 0);
+                newShelter.setLongitude((split[4].matches("(\\-?\\d+(\\.\\d+)?)"))
+                        ? Double.parseDouble(split[4]): 0);
+                newShelter.setLatitude((split[5].matches("(\\-?\\d+(\\.\\d+)?)"))
+                        ? Double.parseDouble(split[5]): 0);
                 newShelter.setAddress(split[6]);
                 for (int i = 7; i < split.length - 1; i++) {
                     newShelter.addNotes(split[i]);
