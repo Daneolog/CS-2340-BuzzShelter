@@ -162,7 +162,7 @@ public class ShelterList {
 
         for (Shelter s : Shelters) {
             // filter by name
-            if (!(s.getShelterName().contains(name))) {
+            if (!(s.getShelterName().toLowerCase().contains(name.toLowerCase()))) {
                 FilteredList.remove(s);
             }
             // filter gender
