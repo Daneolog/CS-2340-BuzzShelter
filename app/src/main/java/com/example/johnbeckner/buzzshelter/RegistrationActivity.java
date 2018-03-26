@@ -1,8 +1,10 @@
 package com.example.johnbeckner.buzzshelter;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -10,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class Registration extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
     private EditText name;
     private EditText email;
@@ -43,10 +45,14 @@ public class Registration extends AppCompatActivity {
                             (UserType) userTypeValue.getSelectedItem());
                     Auth.addUser(newUser);
                     if (Auth.authenticate(name.getText().toString(),
-                            password.getText().toString())) {
+                            password.getText().toString()) != null) {
                         // is new user is able to login
-                        startActivity(new Intent(Registration.this, MainActivity.class));
+                        SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
+                        SharedPreferences.Editor editor = settings.edit();
 
+                        editor.putString("fullName", newUser.getName());
+                        editor.apply();
+                        startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                     }
                 }
             }
@@ -56,7 +62,7 @@ public class Registration extends AppCompatActivity {
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Registration.this, LaunchActivity.class));
+                startActivity(new Intent(RegistrationActivity.this, LaunchActivity.class));
                 finish();
             }
         });
@@ -81,6 +87,13 @@ public class Registration extends AppCompatActivity {
             return false;
         } else if (type.matches("")) {
             Toast.makeText(this, "Please select a user type", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        User test = new User(name, email, password);
+
+        if (!(Auth.findUser(test).equals(new User()))) {
+            Toast.makeText(this, "user name already in use", Toast.LENGTH_SHORT).show();
             return false;
         }
 

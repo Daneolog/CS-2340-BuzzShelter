@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,85 +7,87 @@
     tools:context="com.example.johnbeckner.buzzshelter.ShelterInfoActivity">
 
     <TextView
-        android:id="@+id/ShelterName"
+        android:id="@+id/shelterName"
         android:layout_width="356dp"
         android:layout_height="83dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/shelterRes"
         android:text="Shelter Name: "
         android:textAlignment="viewStart"
         android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.033"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/shelterPhone"
         android:layout_width="356dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_below="@+id/shelterName"
+        android:layout_centerHorizontal="true"
         android:text="Shelter Phone: "
         android:textAlignment="viewStart"
         android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.083"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/shelterRes"
-        android:layout_width="356dp"
-        android:layout_height="96dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Shelter Restrictions: "
-        android:textAlignment="viewStart"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/shelterPhone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.083"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/shelterAddress"
-        android:layout_width="356dp"
-        android:layout_height="105dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Shelter Address"
-        android:textAlignment="viewStart"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/shelterRes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.083"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/shelterCap"
         android:layout_width="356dp"
         android:layout_height="84dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_alignStart="@+id/shelterRes"
+        android:layout_below="@+id/shelterPhone"
         android:text="Shelter Capacity: "
         android:textAlignment="viewStart"
         android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/shelterAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.083"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ShelterName"
-        app:layout_constraintVertical_bias="0.0" />
-</android.support.constraint.ConstraintLayout>
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/shelterRes"
+        android:layout_width="356dp"
+        android:layout_height="96dp"
+        android:layout_alignStart="@+id/shelterPhone"
+        android:layout_below="@+id/shelterCap"
+        android:text="Shelter Restrictions: "
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/shelterAddress"
+        android:layout_width="356dp"
+        android:layout_height="105dp"
+        android:layout_alignStart="@+id/shelterPhone"
+        android:layout_below="@+id/shelterRes"
+        android:text="Shelter Address"
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/DropReservation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/shelterAddress"
+        android:layout_below="@+id/shelterAddress"
+        android:layout_marginEnd="20dp"
+        android:text="Drop Reservation"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="479dp" />
+
+    <Button
+        android:id="@+id/reserveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/shelterAddress"
+        android:layout_below="@+id/shelterAddress"
+        android:layout_marginStart="26dp"
+        android:text="Reserve a Spot!"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="479dp" />
+
+    <Button
+        android:id="@+id/returnButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/DropReservation"
+        android:layout_centerHorizontal="true"
+        android:text="Back" />
+</RelativeLayout>

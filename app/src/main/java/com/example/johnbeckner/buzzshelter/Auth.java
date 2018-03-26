@@ -1,5 +1,7 @@
 package com.example.johnbeckner.buzzshelter;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -22,19 +24,19 @@ public class Auth implements Serializable {
      * Searches the list to authenticate user
      * @return boolean value, true = user authenticated
      */
-    public static boolean authenticate(String username, String password) {
+    public static User authenticate(String username, String password) {
         if (users == null || users.size() == 0) {
             // no users exist
-            return false;
+            return null;
         }
         for(User user : users) {
             if(username.equalsIgnoreCase(user.getId())) {
                 if(password.equals(user.getPassword())) {
-                    return true;
+                    return user;
                 }
             }
         }
-        return false;
+        return null;
     }
 
     public static void addUser(String name, String ID, String password, UserType userType) {
@@ -69,5 +71,21 @@ public class Auth implements Serializable {
             users.remove(index);
             return true; // user found and removed
         }
+    }
+
+    public static User findUser(User find) {
+        if (users == null || users.isEmpty()) {
+            return new User();
+        }
+        if (find == null) {
+            throw new IllegalArgumentException("input canot be null");
+        }
+        for (User u : users) {
+            if (u.equals(find)) {
+                return u;
+            }
+        }
+        Log.e("Find Shelter", "input shelter not in list");
+        return new User();
     }
 }

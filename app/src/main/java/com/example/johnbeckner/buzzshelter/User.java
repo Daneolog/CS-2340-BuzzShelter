@@ -7,12 +7,15 @@ import java.io.Serializable;
  */
 
 public class User implements Serializable {
+
+    private boolean hasReservation;
     private String name;
     private String id;
     private String password;
     private UserType userType;
 
     public User(String name, String id, String password) {
+        hasReservation = false;
         this.name = name;
         this.id = id;
         this.password = password;
@@ -20,10 +23,15 @@ public class User implements Serializable {
     }
 
     public User(String name, String id, String password, UserType userType) {
+        hasReservation = false;
         this.name = name;
         this.id = id;
         this.password = password;
         this.userType = userType;
+    }
+
+    public User() {
+        this("DEFAULT", "DEFAULT", "DEFAULT");
     }
 
     public String getName() {
@@ -58,6 +66,14 @@ public class User implements Serializable {
         this.userType = userType;
     }
 
+    public boolean isHasReservation() {
+        return hasReservation;
+    }
+
+    public void setHasReservation(boolean hasReservation) {
+        this.hasReservation = hasReservation;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -70,7 +86,7 @@ public class User implements Serializable {
             return false;
         }
         User u1 = (User) obj;
-        if (this.getId().equalsIgnoreCase(u1.getId())) {
+        if (this.getName().equalsIgnoreCase(u1.getName())) {
             return true;
         } else {
             return false;

@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Created by John Beckner on 2/28/2018.
@@ -71,7 +72,16 @@ public class ShelterList {
 
                 Shelter newShelter = new Shelter();
                 newShelter.setShelterName(split[1]);
-                newShelter.setCapacity(split[2]);
+
+                if (split[2] == null || split[2].equals(""))
+                    newShelter.setCapacity(0);
+                else {
+                    Scanner scanner = new Scanner(split[2]);
+                    newShelter.setCapacity(Integer.parseInt(scanner.findInLine("\\d+")));
+                }
+
+                Log.e(newShelter.getCapacity() + "", "");
+
                 newShelter.setRestrictions(split[3]);
                 newShelter.setLongitude((split[4].matches("(\\-?\\d+(\\.\\d+)?)"))
                         ? Double.parseDouble(split[4]): 0);
@@ -110,6 +120,20 @@ public class ShelterList {
 
     public static void setShelters(ArrayList<Shelter> shelters) {
         Shelters = shelters;
+    }
+
+    public static Shelter findShelter(Shelter find) {
+        if (find == null) {
+            throw new IllegalArgumentException("input shelter cannot be null");
+        }
+
+        for (Shelter s : Shelters) {
+            if (s.equals(find)) {
+                return s;
+            }
+        }
+        Log.e("Find Shelter", "input shelter not in list");
+        return new Shelter();
     }
 
     public static ArrayList<Shelter> getFilteredList() {

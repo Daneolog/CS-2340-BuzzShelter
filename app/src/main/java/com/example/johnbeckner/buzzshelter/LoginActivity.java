@@ -3,6 +3,7 @@ package com.example.johnbeckner.buzzshelter;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -210,6 +211,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         private final String mEmail;
         private final String mPassword;
+        private User mUser;
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -218,7 +220,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            return Auth.authenticate(mEmail, mPassword);
+            mUser = Auth.authenticate(mEmail, mPassword);
+            return mUser != null;
         }
 
         @Override
@@ -228,6 +231,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
+                SharedPreferences.Editor editor = settings.edit();
+
+                editor.putString("fullName", mUser.getName());
+                editor.apply();
+
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
