@@ -17,6 +17,9 @@ import java.util.ArrayList;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private final double techGreenLat = 33.774737;
+    private final double techGreenLng = -84.397406;
+    private final float zoomLevel = 10.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +44,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        ArrayList<Shelter> shelterList = new ArrayList<>();
+        Iterable<Shelter> shelterList = new ArrayList<>();
 
         // Add a marker in Sydney and move the camera
-        LatLng atlanta = new LatLng(33.774737, -84.397409);
+        LatLng atlanta = new LatLng(techGreenLat, techGreenLng);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(atlanta));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel));
 
         if (!ShelterList.getFilteredList().isEmpty()) {
             shelterList = ShelterList.getFilteredList();
