@@ -3,6 +3,6 @@
 | Name  | Email | Role |
 | ------------- | ------------- | ------------- |
 | Wendell Baptiste  | wbaptiste6@gatech.edu |  |
-| John Beckner  | jbeckner3@gatech.edu  |  |
+| John Beckner  | jbeckner3@gatech.edu  | Abstraction issues, Code style Issues, Method Metrics, Probable Bugs |
 | Sam Jijina  | sam.jijina@gatech.edu |  |
 | Enoch Kumala | enoch.kumala@gatech.edu |  |
