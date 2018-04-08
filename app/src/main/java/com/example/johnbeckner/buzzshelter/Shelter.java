@@ -35,6 +35,17 @@ public class Shelter implements Parcelable, Serializable {
     private String notes;
     private HashMap<String, Integer> reservations;
 
+    /**
+     * Creates a new Shelter
+     * @param shelterName  name of shelter
+     * @param capacity     initial max capacity of shelter
+     * @param restrictions restrictions of residents of shelter
+     * @param longitude    location (longitude) of shelter
+     * @param latitude     location (latitude) of shelter
+     * @param address      location (street address) of shelter
+     * @param phoneNumber  phone number of shelter
+     * @param notes        special notes about shelter
+     */
     public Shelter(String shelterName, int capacity, String restrictions,
         double longitude, double latitude, String address, String phoneNumber, String notes) {
         this.shelterName = shelterName;
@@ -47,10 +58,18 @@ public class Shelter implements Parcelable, Serializable {
         this.notes = notes;
         reservations = new HashMap<>();
     }
+
+    /**
+     * Creates a new Shelter
+     */
     public Shelter() {
         reservations = new HashMap<>();
     }
 
+    /**
+     * Creates a new shelter based on parcelable object
+     * @param in parcel
+     */
     protected Shelter(Parcel in) {
         String[] data = new String[8];
 
@@ -79,58 +98,119 @@ public class Shelter implements Parcelable, Serializable {
         }
     };
 
+    /**
+     * @return shelter name
+     */
     public String getShelterName() {
         return shelterName;
     }
+    /**
+     * @param name name to set
+     */
     public void setShelterName(String name) {
         shelterName = name;
     }
+
+    /**
+     * @return shelter capacity
+     */
     public int getCapacity() {
         return capacity;
     }
+    /**
+     * @param data capacity to set
+     */
     public void setCapacity(int data) {
         capacity = data;
     }
+
+    /**
+     * @return shelter restrictions
+     */
     public String getRestrictions() {
         return restrictions;
     }
+    /**
+     * @param data restrictions to set
+     */
     public void setRestrictions(String data) {
         restrictions = data;
     }
+
+    /**
+     * @return shelter longitude
+     */
     public double getLongitude() {
         return longitude;
     }
+    /**
+     * @param data longitude to set
+     */
     public void setLongitude(double data) {
         longitude = data;
     }
+
+    /**
+     * @return shelter latitude
+     */
     public double getLatitude() {
         return latitude;
     }
+    /**
+     * @param data latitude to set
+     */
     public void setLatitude(double data) {
         latitude = data;
     }
-    public void setAddress(String address) {
-        this.address = address;
-    }
+
+    /**
+     * @return shelter address
+     */
     public String getAddress() {
         return address;
     }
+    /**
+     * @param address address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
+     * @return shelter phone
+     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
+    /**
+     * @param data phone to set
+     */
     public void setPhoneNumber(String data) {
         phoneNumber = data;
     }
+
+    /**
+     * @return shelter notes
+     */
+    public String getNotes() {
+        return notes;
+    }
+    /**
+     * Adds extra notes
+     * @param note notes to add
+     */
     public void addNotes(String note) {
         if (this.notes == null) {
             this.notes = "";
         }
         this.notes = this.notes  + " " + note;
     }
-    public String getNotes() {
-        return notes;
-    }
 
+    /**
+     * Checks equality between other Object
+     * @param that other object
+     * @return equality between objects
+     */
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -147,6 +227,11 @@ public class Shelter implements Parcelable, Serializable {
                 && this.getPhoneNumber().equals(thatShelter.getPhoneNumber()));
     }
 
+    /**
+     * Adds reservation to shelter's HashMap
+     * @param user name of user to put reservation under
+     * @param count number of reserved spots
+     */
     public void addReservation(String user, int count) {
         if (reservations.containsKey(user)) {
             reservations.put(user, reservations.get(user) + count);
@@ -154,12 +239,22 @@ public class Shelter implements Parcelable, Serializable {
             reservations.put(user, count);
         }
     }
+
+    /**
+     * @return reservations HashMap
+     */
     public HashMap<String, Integer> getReservations() { return reservations; }
 
+    /**
+     * @return string representation of shelter
+     */
     public String toString() {
         return shelterName;
     }
 
+    /**
+     * @return shelter information
+     */
     public String[] getInfo() {
         return new String[] {
                 "Shelter Name: " + shelterName,
@@ -192,6 +287,11 @@ public class Shelter implements Parcelable, Serializable {
         parcel.writeSerializable(getReservations());
     }
 
+    /**
+     * Reserve (with error handling) a spot for a user
+     * @param user user to reserve spots for
+     * @param reserve number of spots to reserve
+     */
     public void reserve(String user, int reserve) {
         if (capacity < reserve) {
             throw new RuntimeException("Reserved less than was supposed to...");
@@ -201,6 +301,11 @@ public class Shelter implements Parcelable, Serializable {
         }
     }
 
+    /**
+     * Drop all reservations for a user
+     * @param user user to drop reservations for
+     * @return whether user has reservations currently
+     */
     public boolean dropReservation(String user) {
         if (user == null) {
             throw new IllegalArgumentException("Input cannot be null");
@@ -214,7 +319,7 @@ public class Shelter implements Parcelable, Serializable {
         }
     }
 
-    public void cancelReserve(int reserve) {
-        capacity += reserve;
-    }
+//    public void cancelReserve(int reserve) {
+//        capacity += reserve;
+//    }
 }

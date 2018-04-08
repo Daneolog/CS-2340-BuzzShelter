@@ -12,6 +12,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+/**
+ * Registration activity
+ * @author team
+ * @version 1.0
+ */
 public class RegistrationActivity extends AppCompatActivity {
 
     private EditText name;
@@ -24,16 +29,16 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        name = (EditText) findViewById(R.id.name_text_field);
-        email = (EditText) findViewById(R.id.email_text_field);
-        password = (EditText) findViewById(R.id.password_text_field);
-        userTypeValue = (Spinner) findViewById(R.id.RegSpinner);
+        name = findViewById(R.id.name_text_field);
+        email = findViewById(R.id.email_text_field);
+        password = findViewById(R.id.password_text_field);
+        userTypeValue = findViewById(R.id.RegSpinner);
 
-        userTypeValue = (Spinner) findViewById(R.id.RegSpinner);
+        userTypeValue = findViewById(R.id.RegSpinner);
         userTypeValue.setAdapter(new ArrayAdapter<UserType>(this,
                 android.R.layout.simple_spinner_item, UserType.values()));
 
-        Button mRegisterUser = (Button) findViewById(R.id.registerButton2);
+        Button mRegisterUser = findViewById(R.id.registerButton2);
         mRegisterUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +63,7 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
-        Button mCancelButton = (Button) findViewById(R.id.cancelButton);
+        Button mCancelButton = findViewById(R.id.cancelButton);
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

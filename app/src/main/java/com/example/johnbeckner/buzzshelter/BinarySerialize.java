@@ -15,49 +15,87 @@ import java.util.ArrayList;
  * Created by John Beckner on 3/13/2018.
  */
 
-public class BinarySerialize implements Serializable {
+class BinarySerialize implements Serializable {
 
     private ArrayList<Shelter> Shelters;
     private ArrayList<Shelter> FilteredList;
     private ArrayList<User> UserList;
     private BinarySerialize bs;
 
+    /**
+     * Creates new BinarySerialize object
+     */
     public BinarySerialize() {
         Shelters = new ArrayList<Shelter>();
         FilteredList = new ArrayList<Shelter>();
         UserList = new ArrayList<User>();
     }
 
+    /**
+     * Creates new BinarySerialize object
+     * @param Shelters list of shelters
+     * @param FilteredList filtered list of shelters
+     * @param UserList list of users
+     */
     public BinarySerialize(ArrayList<Shelter> Shelters, ArrayList<Shelter> FilteredList, ArrayList<User> UserList) {
         this.Shelters = Shelters;
         this.FilteredList = FilteredList;
         this.UserList = UserList;
     }
 
-    public ArrayList<Shelter> getShelters() {
+    /**
+     * Getter for shelters list
+     * @return shelters list
+     */
+    private ArrayList<Shelter> getShelters() {
         return Shelters;
     }
 
-    public ArrayList<Shelter> getFilteredList() {
+    /**
+     * Getter for filtered shelters list
+     * @return filtered shelters list
+     */
+    private ArrayList<Shelter> getFilteredList() {
         return FilteredList;
     }
 
-    public ArrayList<User> getUserList() {
+    /**
+     * Getter for users list
+     * @return users list
+     */
+    private ArrayList<User> getUserList() {
         return UserList;
     }
 
+    /**
+     * Setter for shelters list
+     * @param shelters ArrayList to set shelters to
+     */
     public void setShelters(ArrayList<Shelter> shelters) {
         Shelters = shelters;
     }
 
+    /**
+     * Setter for filtered shelters list
+     * @param filteredList ArrayList to set filtered shelters to
+     */
     public void setFilteredList(ArrayList<Shelter> filteredList) {
         FilteredList = filteredList;
     }
 
+    /**
+     * Setter for users list
+     * @param userList ArrayList to set users to
+     */
     public void setUserList(ArrayList<User> userList) {
         UserList = userList;
     }
 
+    /**
+     * Saves data to binary file
+     * @param file binary file to save data to
+     * @return success of binary file serialization
+     */
     public boolean saveBinary(File file) {
         boolean success = true;
         try {
@@ -72,6 +110,11 @@ public class BinarySerialize implements Serializable {
         return success;
     }
 
+    /**
+     * Loads data from binary file
+     * @param file binary file to load data from
+     * @return success of binary file load
+     */
     public boolean loadBinary(File file) {
         boolean success = true;
         try {

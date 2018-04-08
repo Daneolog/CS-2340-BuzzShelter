@@ -7,6 +7,11 @@ import android.widget.Button;
 
 import java.io.File;
 
+/**
+ * Starting screen activity
+ * @author team
+ * @version 1.0
+ */
 public class StartActivity extends AppCompatActivity {
 
     @Override
@@ -17,7 +22,7 @@ public class StartActivity extends AppCompatActivity {
         Button loginButton = findViewById(R.id.loginScreen);
         Button registerButton = findViewById(R.id.registerScreen);
 
-        File file = file = new File(this.getFilesDir(), "data.bin");
+        File file = new File(this.getFilesDir(), "data.bin");
         if (file.exists()) {
             BinarySerialize bs = new BinarySerialize();
             bs.loadBinary(file);

@@ -9,19 +9,29 @@ import java.util.ArrayList;
  * Created by Sam on 2/20/18.
  */
 
-public class Auth implements Serializable {
+class Auth implements Serializable {
     private static ArrayList<User> users;
 
+    /**
+     * Getter for users array
+     * @return ArrayList of users
+     */
     public static ArrayList<User> getUsers() {
         return users;
     }
 
+    /**
+     * Setter for users array
+     * @param users ArrayList to set users to
+     */
     public static void setUsers(ArrayList<User> users) {
         Auth.users = users;
     }
 
     /**
      * Searches the list to authenticate user
+     * @param username username of user to authenticate
+     * @param password password of user to authenticate
      * @return boolean value, true = user authenticated
      */
     public static User authenticate(String username, String password) {
@@ -39,6 +49,13 @@ public class Auth implements Serializable {
         return null;
     }
 
+    /**
+     * Adds a user to database
+     * @param name name of user to add
+     * @param ID id to add
+     * @param password password of user to add
+     * @param userType user type (general user, shelter employee, or admin)
+     */
     public static void addUser(String name, String ID, String password, UserType userType) {
         if (users == null) {
             users = new ArrayList<>();
@@ -47,6 +64,10 @@ public class Auth implements Serializable {
         users.add(temp);
     }
 
+    /**
+     * Adds new user to database
+     * @param newUser user to add
+     */
     public static void addUser(User newUser) {
         if (users == null) {
             users = new ArrayList<>();
@@ -54,6 +75,11 @@ public class Auth implements Serializable {
         users.add(newUser);
     }
 
+    /**
+     * Removes user from database
+     * @param ID id of user to remove
+     * @return whether user was removed
+     */
     public static boolean removeUser(String ID) {
         if (users == null || users.size() == 0) {
             return false;
@@ -73,6 +99,11 @@ public class Auth implements Serializable {
         }
     }
 
+    /**
+     * Finds and returns user
+     * @param find user to find
+     * @return found user, null if not found
+     */
     public static User findUser(User find) {
         if (users == null || users.isEmpty()) {
             return new User();
@@ -86,6 +117,6 @@ public class Auth implements Serializable {
             }
         }
         Log.e("Find Shelter", "input shelter not in list");
-        return new User();
+        return null;
     }
 }

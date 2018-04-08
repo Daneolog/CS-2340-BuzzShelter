@@ -8,6 +8,11 @@ import android.widget.Button;
 
 import java.io.File;
 
+/**
+ * Starting activity
+ * @author team
+ * @version 1.0
+ */
 public class LaunchActivity extends AppCompatActivity {
 
     @Override
@@ -18,24 +23,18 @@ public class LaunchActivity extends AppCompatActivity {
         final Button mlogin_Button = findViewById(R.id.Login_Button);
         final Button mRegister_Button = findViewById(R.id.Register_Button);
 
-        File file = file = new File(this.getFilesDir(), "data.bin");
+        File file = new File(this.getFilesDir(), "data.bin");
         if (file.exists()) {
             BinarySerialize bs = new BinarySerialize();
             bs.loadBinary(file);
         }
 
-        mlogin_Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LaunchActivity.this, LoginActivity.class));
-            }
+        mlogin_Button.setOnClickListener(v -> {
+            startActivity(new Intent(LaunchActivity.this, LoginActivity.class));
         });
 
-        mRegister_Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LaunchActivity.this, RegistrationActivity.class));
-            }
+        mRegister_Button.setOnClickListener(v -> {
+            startActivity(new Intent(LaunchActivity.this, RegistrationActivity.class));
         });
     }
 }

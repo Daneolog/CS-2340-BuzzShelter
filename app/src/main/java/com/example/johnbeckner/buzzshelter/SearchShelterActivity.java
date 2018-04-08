@@ -9,6 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+/**
+ * Shelter search activity
+ * @author team
+ * @version 1.0
+ */
 public class SearchShelterActivity extends AppCompatActivity {
 
     private EditText shelterName;
@@ -21,14 +26,14 @@ public class SearchShelterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_shelter);
 
-        shelterName = (EditText) findViewById(R.id.NameField);
-        genderSpinner = (Spinner) findViewById(R.id.GenderSpinner);
+        shelterName = findViewById(R.id.NameField);
+        genderSpinner = findViewById(R.id.GenderSpinner);
         genderSpinner.setAdapter(new ArrayAdapter<Gender>(this,
                 android.R.layout.simple_spinner_item, Gender.values()));
-        ageSpinner = (Spinner) findViewById(R.id.AgeSpinner);
+        ageSpinner = findViewById(R.id.AgeSpinner);
         ageSpinner.setAdapter((new ArrayAdapter<AgeRange>(this,
                 android.R.layout.simple_spinner_item, AgeRange.values())));
-        searchButton = (Button) findViewById(R.id.Search);
+        searchButton = findViewById(R.id.Search);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override

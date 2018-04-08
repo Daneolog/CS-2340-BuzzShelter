@@ -14,6 +14,12 @@ public class User implements Serializable {
     private String password;
     private UserType userType;
 
+    /**
+     * Creates new user
+     * @param name name of user
+     * @param id id (username)
+     * @param password password entered
+     */
     public User(String name, String id, String password) {
         hasReservation = false;
         this.name = name;
@@ -22,6 +28,13 @@ public class User implements Serializable {
         this.userType = UserType.GENERAL_USER;
     }
 
+    /**
+     * Creates new user
+     * @param name name of user
+     * @param id id (username)
+     * @param password password entered
+     * @param userType user type
+     */
     public User(String name, String id, String password, UserType userType) {
         hasReservation = false;
         this.name = name;
@@ -30,46 +43,79 @@ public class User implements Serializable {
         this.userType = userType;
     }
 
+    /**
+     * Creates default user
+     */
     public User() {
         this("DEFAULT", "DEFAULT", "DEFAULT");
     }
 
+    /**
+     * @return name of user
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param name name to set to
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @return id of user
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * @param id id to set to
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * @return password of user
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * @param password password to set to
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * @return user type
+     */
     public UserType getUserType() {
         return userType;
     }
 
+    /**
+     * @param userType user type to set to
+     */
     public void setUserType(UserType userType) {
         this.userType = userType;
     }
 
+    /**
+     * @return if current user has reservation
+     */
     public boolean isHasReservation() {
         return hasReservation;
     }
 
+    /**
+     * @param hasReservation value of reservation
+     */
     public void setHasReservation(boolean hasReservation) {
         this.hasReservation = hasReservation;
     }

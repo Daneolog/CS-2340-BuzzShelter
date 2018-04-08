@@ -18,6 +18,9 @@ import android.widget.ListView;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Shelter> filteredList;
@@ -32,13 +35,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ShelterLV = (ListView) findViewById(R.id.List);
-        Filter = (Button) findViewById(R.id.FilterButton);
+        ShelterLV = findViewById(R.id.List);
+        Filter = findViewById(R.id.FilterButton);
         filteredList = new ArrayList<>();
         file = new File(this.getFilesDir(), "data.bin");
-        Map = (Button) findViewById(R.id.Map);
+        Map = findViewById(R.id.Map);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey("Filtered Shelter List")) {
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 ShelterList.getFilteredList(),
                 Auth.getUsers());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

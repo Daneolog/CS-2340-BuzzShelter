@@ -15,6 +15,9 @@ public enum UserType {
         this.name = name;
     }
 
+    /**
+     * @return string value of user type
+     */
     public String getName() {
         return name;
     }
