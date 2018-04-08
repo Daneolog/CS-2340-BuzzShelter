@@ -25,7 +25,7 @@ public class Auth implements Serializable {
      * @return boolean value, true = user authenticated
      */
     public static User authenticate(String username, String password) {
-        if (users == null || users.size() == 0) {
+        if ((users == null) || (users.isEmpty())) {
             // no users exist
             return null;
         }
@@ -55,7 +55,7 @@ public class Auth implements Serializable {
     }
 
     public static boolean removeUser(String ID) {
-        if (users == null || users.size() == 0) {
+        if ((users == null) || (users.isEmpty())) {
             return false;
         }
         int index = -1;
@@ -74,7 +74,7 @@ public class Auth implements Serializable {
     }
 
     public static User findUser(User find) {
-        if (users == null || users.isEmpty()) {
+        if ((users == null) || users.isEmpty()) {
             return new User();
         }
         if (find == null) {

@@ -65,7 +65,7 @@ public class ShelterList {
 
                 String[] split = line.split(";");
                 for (int i = 0; i < split.length; i++) {
-                    if (split[i] == "" || split[i] == null) {
+                    if ((split[i] == "") || (split[i] == null)) {
                         split[i] = "Not Available";
                     }
                 }
@@ -73,9 +73,9 @@ public class ShelterList {
                 Shelter newShelter = new Shelter();
                 newShelter.setShelterName(split[1]);
 
-                if (split[2] == null || split[2].equals(""))
+                if ((split[2] == null) || "".equals(split[2])) {
                     newShelter.setCapacity(0);
-                else {
+                } else {
                     Scanner scanner = new Scanner(split[2]);
                     newShelter.setCapacity(Integer.parseInt(scanner.findInLine("\\d+")));
                 }
@@ -88,7 +88,7 @@ public class ShelterList {
                 newShelter.setLatitude((split[5].matches("([-+]?\\d+(\\.\\d+)?)"))
                         ? Double.parseDouble(split[5]): 0);
                 newShelter.setAddress(split[6]);
-                for (int i = 7; i < split.length - 1; i++) {
+                for (int i = 7; i < (split.length - 1); i++) {
                     newShelter.addNotes(split[i]);
                 }
                 newShelter.setPhoneNumber(split[split.length - 1]);
@@ -162,23 +162,27 @@ public class ShelterList {
 
         for (Shelter s : Shelters) {
             // filter by name
-            if (!(s.getShelterName().toLowerCase().contains(name.toLowerCase()))) {
+            String shelterName = s.getShelterName();
+            String restrictions = s.getRestrictions();
+
+            shelterName = shelterName.toLowerCase();
+            if (!(shelterName.contains(name.toLowerCase()))) {
                 FilteredList.remove(s);
             }
             // filter gender
-            if (gender.equals("Anyone")) {
+            if ("Anyone".equals(gender)) {
                 gender = "";
             }
-            if (!(s.getRestrictions().contains(gender))) {
+            if (!(restrictions.contains(gender))) {
                 FilteredList.remove(s);
             }
 
             // filter age range
-            if (ageRange.equals("Anyone")) {
+            if ("Anyone".equals(ageRange)) {
                 ageRange = "";
             }
-            if (!(s.getRestrictions().toLowerCase()
-                    .contains(ageRange.toLowerCase()))) {
+            restrictions = restrictions.toLowerCase();
+            if (!(restrictions.contains(ageRange.toLowerCase()))) {
                 FilteredList.remove(s);
             }
         }

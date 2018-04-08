@@ -34,8 +34,10 @@ public class SearchShelterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String nameFilter = "" + shelterName.getText();
-                String genderFilter = genderSpinner.getSelectedItem().toString();
-                String ageRangeFilter = ageSpinner.getSelectedItem().toString();
+                Object selectedGenderSpinner = genderSpinner.getSelectedItem();
+                String genderFilter = ((Gender) selectedGenderSpinner).toString();
+                Object selectedAgeRange = ageSpinner.getSelectedItem();
+                String ageRangeFilter = ((AgeRange) selectedAgeRange).toString();
 
                 ShelterList.filterShelters(nameFilter, genderFilter, ageRangeFilter);
 
@@ -52,7 +54,7 @@ public class SearchShelterActivity extends AppCompatActivity {
         WOMEN ("Women"),
         MEN ("Men");
 
-        private String genderString;
+        private final String genderString;
         Gender(String genderString) {
             this.genderString = genderString;
         }
@@ -70,7 +72,7 @@ public class SearchShelterActivity extends AppCompatActivity {
         CHILDREN ("Children"),
         YOUNG_ADULT ("Young Adult");
 
-        private String AgeRangeString;
+        private final String AgeRangeString;
         AgeRange(String AgeRangeString) {
             this.AgeRangeString = AgeRangeString;
         }

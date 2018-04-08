@@ -1,15 +1,19 @@
 package com.example.johnbeckner.buzzshelter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
-;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Set;
 
 public class ShelterInfoActivity extends AppCompatActivity {
     Shelter info;
@@ -37,30 +41,36 @@ public class ShelterInfoActivity extends AppCompatActivity {
         dropReserveButton = (Button) findViewById(R.id.DropReservation);
         returnButton = findViewById(R.id.returnButton);
 
-        info = getIntent().getParcelableExtra("shelter_info");
+        Intent intent = getIntent();
+        info = intent.getParcelableExtra("shelter_info");
         setShelterInfo();
     }
 
     private void setShelterInfo() {
         name.setText(info.getShelterName());
+        HashMap<String, Integer> reservation = info.getReservations();
+        Set<String> resKeySet = reservation.keySet();
         capacity.setText(String.format("%d\nThis has been reserved by %s",
-                info.getCapacity(), info.getReservations().keySet().toString()));
+                info.getCapacity(), resKeySet.toString()));
         address.setText(info.getAddress());
         restrictions.setText(info.getRestrictions());
         phone.setText(info.getPhoneNumber());
-
-        SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
+        Context appContext = getApplicationContext();
+        SharedPreferences settings = appContext.getSharedPreferences("User", 0);
         String user = settings.getString("fullName", "DEFAULT");
 
         dropReserveButton.setOnClickListener(v -> {
             if (info.dropReservation(user)) {
                 User temp = new User();
                 temp.setName(user);
-                Auth.findUser(temp).setHasReservation(false);
-                Toast.makeText(this, "Successfully dropped reservation", Toast.LENGTH_LONG).show();
+                temp = Auth.findUser(temp);
+                temp.setHasReservation(false);
+                Toast newToast = Toast.makeText(this, "Successfully dropped reservation", Toast.LENGTH_SHORT);
+                newToast.show();
                 recreate();
             } else {
-                Toast.makeText(this, "You don't have a reservation at this shelter.", Toast.LENGTH_LONG).show();
+                Toast newToast = Toast.makeText(this, "You don't have a reservation at this shelter.", Toast.LENGTH_SHORT);
+                newToast.show();
             }
         });
 
