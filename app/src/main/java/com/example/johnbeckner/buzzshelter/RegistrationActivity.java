@@ -115,6 +115,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         User test = Auth.findUser(new User(name, email, password));
 
+        assert test != null;
         if (!(test.equals(new User()))) {
             Toast newToast = Toast.makeText(this, "user name already in use", Toast.LENGTH_SHORT);
             newToast.show();

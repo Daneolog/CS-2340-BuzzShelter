@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Activity for Google Maps view.
@@ -47,17 +48,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+    @SuppressWarnings("FeatureEnvy") // Fixing this warning would require us to re-write ShelterList
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        Iterable<Shelter> shelterList = new ArrayList<>();
+        Iterable<Shelter> shelterList;
 
         // Add a marker in Sydney and move the camera
         LatLng atlanta = new LatLng(techGreenLat, techGreenLng);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(atlanta));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel));
 
-        ArrayList<Shelter> filteredList = ShelterList.getFilteredList();
+        List<Shelter> filteredList = ShelterList.getFilteredList();
         if (!filteredList.isEmpty()) {
             shelterList = ShelterList.getFilteredList();
         } else {

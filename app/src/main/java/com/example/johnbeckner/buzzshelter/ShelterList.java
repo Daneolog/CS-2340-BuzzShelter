@@ -15,6 +15,7 @@ import java.util.Scanner;
  * Created by John Beckner on 2/28/2018.
  */
 
+@SuppressWarnings("OverlyLongMethod")
 public class ShelterList {
 
     private static ArrayList<Shelter> Shelters = new ArrayList<>();
@@ -43,29 +44,27 @@ public class ShelterList {
     Split[last] = Phone Number
      */
 
+    @SuppressWarnings({"FeatureEnvy", "OverlyComplexMethod"})
+    // I don't think this is feature envy, we only call on Shelter twice in the method
     public static void parseDatabase (InputStream database) {
 
         Shelters = new ArrayList<>();
 
-        String line = "";
+        String line;
         BufferedReader br = null;
         try {
             br = new BufferedReader(
                     new InputStreamReader(database, Charset.forName("UTF-8"))
             );
 
-            if ((line = br.readLine()) != null) {
-
-            } else {
-                return;
-            }
+            br.readLine(); // remove the first line
             while ((line = br.readLine()) != null) {
 
                 Log.e("line", line.toString());
 
                 String[] split = line.split(";");
                 for (int i = 0; i < split.length; i++) {
-                    if (split[i] == "" || split[i] == null) {
+                    if (split[i].equals("") || split[i] == null) {
                         split[i] = "Not Available";
                     }
                 }
@@ -144,6 +143,7 @@ public class ShelterList {
         FilteredList = filteredList;
     }
 
+    @SuppressWarnings("FeatureEnvy") // I don't think this is feature envy, we only call on Shelter twice in the method
     public static void filterShelters(String name, String gender, String ageRange) {
 
         FilteredList = new ArrayList<>();

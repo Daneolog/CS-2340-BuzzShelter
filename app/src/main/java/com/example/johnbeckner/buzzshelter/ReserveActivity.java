@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+@SuppressWarnings("OverlyLongMethod")
 public class ReserveActivity extends AppCompatActivity {
 
+    @SuppressWarnings("FeatureEnvy") // to fix this warning, we would need to re-write User
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +31,6 @@ public class ReserveActivity extends AppCompatActivity {
         reserveButton.setOnClickListener(v -> {
             String input = numReserve.getText().toString();
 
-            // this if statement was causing problems
-            // the text field only allows users to input numbers anyway
-            // if more than 1 digit is input, the statement will be true
-//            if (input.equals("") || !input.matches("[0-9]")) {
-//                Toast.makeText(this, "Please enter a number.", Toast.LENGTH_LONG).show();
-//            } else {
             int count = Integer.parseInt(input);
             if (count > shelterInList.getCapacity()) {
                 Toast.makeText(this, "Unfortunately, there are not that many available reservations",
@@ -47,7 +43,7 @@ public class ReserveActivity extends AppCompatActivity {
                 temp.setName(user);
                 User userInList = Auth.findUser(temp);
 
-                if (userInList.getName().equals("DEFAULT")) {
+                if (userInList != null ? userInList.getName().equals("DEFAULT") : false) {
                     Toast.makeText(this, "You're not logged in!", Toast.LENGTH_LONG).show();
                     return;
                 }

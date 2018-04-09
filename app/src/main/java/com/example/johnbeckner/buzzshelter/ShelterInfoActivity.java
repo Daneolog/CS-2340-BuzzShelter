@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 public class ShelterInfoActivity extends AppCompatActivity {
     Shelter info;
 
@@ -41,6 +43,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         setShelterInfo();
     }
 
+    @SuppressWarnings("FeatureEnvy") // I don't think this is feature envy, we only call on Shelter twice in the method
     private void setShelterInfo() {
         name.setText(info.getShelterName());
         capacity.setText(String.format("%d\nThis has been reserved by %s",
@@ -56,7 +59,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
             if (info.dropReservation(user)) {
                 User temp = new User();
                 temp.setName(user);
-                Auth.findUser(temp).setHasReservation(false);
+                Objects.requireNonNull(Auth.findUser(temp)).setHasReservation(false);
                 Toast.makeText(this, "Successfully dropped reservation", Toast.LENGTH_LONG).show();
                 recreate();
             } else {

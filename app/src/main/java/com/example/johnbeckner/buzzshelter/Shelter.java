@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
@@ -33,7 +34,7 @@ public class Shelter implements Parcelable, Serializable {
     private String address;
     private String phoneNumber;
     private String notes;
-    private final HashMap<String, Integer> reservations;
+    private final AbstractMap<String, Integer> reservations;
 
     /**
      * Creates a new Shelter
@@ -46,8 +47,9 @@ public class Shelter implements Parcelable, Serializable {
      * @param phoneNumber  phone number of shelter
      * @param notes        special notes about shelter
      */
+    @SuppressWarnings("ConstructorWithTooManyParameters") // this method is used when parsing the database of shelters
     public Shelter(String shelterName, int capacity, String restrictions,
-        double longitude, double latitude, String address, String phoneNumber, String notes) {
+                   double longitude, double latitude, String address, String phoneNumber, String notes) {
         this.shelterName = shelterName;
         this.capacity = capacity;
         this.restrictions = restrictions;
@@ -222,7 +224,7 @@ public class Shelter implements Parcelable, Serializable {
         Shelter thatShelter = (Shelter) that;
         String shelterName = this.getShelterName();
         String address = this.getAddress();
-        String phoneNumber = this.getPhoneNumber()
+        String phoneNumber = this.getPhoneNumber();
         return (
                 shelterName.equals(thatShelter.getShelterName())
                 && address.equals(thatShelter.getAddress())
@@ -245,7 +247,7 @@ public class Shelter implements Parcelable, Serializable {
     /**
      * @return reservations HashMap
      */
-    public HashMap<String, Integer> getReservations() { return reservations; }
+    public HashMap<String, Integer> getReservations() { return (HashMap<String, Integer>) reservations; }
 
     /**
      * @return string representation of shelter

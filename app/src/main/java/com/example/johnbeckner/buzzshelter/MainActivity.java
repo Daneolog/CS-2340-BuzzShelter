@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.io.File;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private File file;
     private BinarySerialize bs;
 
+    @SuppressWarnings("FeatureEnvy") // Fixing this warning would require us to re-write ShelterList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<Shelter> arrayAdapter = new ArrayAdapter<Shelter>(
+        ListAdapter arrayAdapter = new ArrayAdapter<Shelter>(
                 this,
                 android.R.layout.simple_list_item_1,
                 filteredList

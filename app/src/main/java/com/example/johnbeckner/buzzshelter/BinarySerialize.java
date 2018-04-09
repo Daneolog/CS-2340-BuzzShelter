@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -99,7 +100,7 @@ class BinarySerialize implements Serializable {
     public boolean saveBinary(File file) {
         boolean success = true;
         try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+            ObjectOutput out = new ObjectOutputStream(new FileOutputStream(file));
             //Log.e("File Created", file.getPath());
             out.writeObject(this);
             out.close();
