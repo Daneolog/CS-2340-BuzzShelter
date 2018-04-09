@@ -15,15 +15,11 @@ import java.util.Scanner;
  * Created by John Beckner on 2/28/2018.
  */
 
-class ShelterList {
+public class ShelterList {
 
     private static ArrayList<Shelter> Shelters = new ArrayList<>();
     private static ArrayList<Shelter> FilteredList = new ArrayList<>();
 
-    /**
-     * Adds new shelter to list
-     * @param data shelter data to add
-     */
     public static void addShelter (Shelter data) {
         if (data == null) {
             throw new IllegalArgumentException("input shelter is null");
@@ -47,10 +43,6 @@ class ShelterList {
     Split[last] = Phone Number
      */
 
-    /**
-     * Parse database from input stream
-     * @param database input stream of database
-     */
     public static void parseDatabase (InputStream database) {
 
         Shelters = new ArrayList<>();
@@ -81,7 +73,7 @@ class ShelterList {
                 Shelter newShelter = new Shelter();
                 newShelter.setShelterName(split[1]);
 
-                if (split[2] == null || "".equals(split[2]))
+                if (split[2] == null || split[2].equals(""))
                     newShelter.setCapacity(0);
                 else {
                     Scanner scanner = new Scanner(split[2]);
@@ -120,25 +112,16 @@ class ShelterList {
         }
     }
 
-    /**
-     * @return shelter list
-     */
+
+
     public static ArrayList<Shelter> getShelters() {
         return Shelters;
     }
 
-    /**
-     * @param shelters list of shelters to set to
-     */
     public static void setShelters(ArrayList<Shelter> shelters) {
         Shelters = shelters;
     }
 
-    /**
-     * Query shelter list to find a shelter..?
-     * @param find shelter to find
-     * @return shelter in list
-     */
     public static Shelter findShelter(Shelter find) {
         if (find == null) {
             throw new IllegalArgumentException("input shelter cannot be null");
@@ -153,26 +136,14 @@ class ShelterList {
         return new Shelter();
     }
 
-    /**
-     * @return filtered ArrayList of shelters
-     */
     public static ArrayList<Shelter> getFilteredList() {
         return FilteredList;
     }
 
-    /**
-     * @param filteredList filtered list to set to
-     */
     public static void setFilteredList(ArrayList<Shelter> filteredList) {
         FilteredList = filteredList;
     }
 
-    /**
-     * Filters shelters by different fields
-     * @param name name to filter by
-     * @param gender gender to filter by
-     * @param ageRange age range to filter by
-     */
     public static void filterShelters(String name, String gender, String ageRange) {
 
         FilteredList = new ArrayList<>();
@@ -195,7 +166,7 @@ class ShelterList {
                 FilteredList.remove(s);
             }
             // filter gender
-            if ("Anyone".equals(gender)) {
+            if (gender.equals("Anyone")) {
                 gender = "";
             }
             if (!(s.getRestrictions().contains(gender))) {
@@ -203,7 +174,7 @@ class ShelterList {
             }
 
             // filter age range
-            if ("Anyone".equals(ageRange)) {
+            if (ageRange.equals("Anyone")) {
                 ageRange = "";
             }
             if (!(s.getRestrictions().toLowerCase()

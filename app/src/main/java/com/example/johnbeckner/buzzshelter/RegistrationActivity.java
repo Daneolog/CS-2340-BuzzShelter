@@ -1,9 +1,11 @@
 package com.example.johnbeckner.buzzshelter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -43,16 +45,20 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validInputs()) {
+                    Editable nameText = name.getText();
+                    Editable emailText = email.getText();
+                    Editable passText = password.getText();
                     User newUser = new User(
-                            name.getText().toString(),
-                            email.getText().toString(),
-                            password.getText().toString(),
+                            nameText.toString(),
+                            emailText.toString(),
+                            passText.toString(),
                             (UserType) userTypeValue.getSelectedItem());
                     Auth.addUser(newUser);
-                    if (Auth.authenticate(name.getText().toString(),
-                            password.getText().toString()) != null) {
+                    if (Auth.authenticate(nameText.toString(),
+                            passText.toString()) != null) {
                         // is new user is able to login
-                        SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
+                        Context settingCon = getApplicationContext();
+                        SharedPreferences settings = settingCon.getSharedPreferences("User", 0);
                         SharedPreferences.Editor editor = settings.edit();
 
                         editor.putString("fullName", newUser.getName());
@@ -74,31 +80,44 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private boolean validInputs() {
-        String name = this.name.getText().toString();
-        String email = this.email.getText().toString();
-        String password = this.password.getText().toString();
-        String type = this.userTypeValue.getSelectedItem().toString();
+
+        Editable nameText = this.name.getText();
+        Editable emailText = this.email.getText();
+        Editable passText = this.password.getText();
+        Object uTypeValSDelected = this.userTypeValue.getSelectedItem();
+
+        String name = nameText.toString();
+        String email = emailText.toString();
+        String password = passText.toString();
+        String type = ((UserType) uTypeValSDelected).toString();
 
         if (name.matches("")) {
-            Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
+            Toast newToast = Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT);
+            newToast.show();
             return false;
         }else if (email.matches("")) {
             // we can also check if the email is a valid email here, but for now I'm just making sure it exists
-            Toast.makeText(this, "Please enter an email", Toast.LENGTH_SHORT).show();
+            Toast newToast = Toast.makeText(this, "Please enter an email", Toast.LENGTH_SHORT);
+            newToast.show();
             return false;
         } else if (password.matches("")) {
             // same as email, we can enforce rules here, but for now I ust want it to exist
-            Toast.makeText(this, "Please enter a password", Toast.LENGTH_SHORT).show();
+            Toast newToast = Toast.makeText(this, "Please enter a password", Toast.LENGTH_SHORT);
+            newToast.show();
+
             return false;
         } else if (type.matches("")) {
-            Toast.makeText(this, "Please select a user type", Toast.LENGTH_SHORT).show();
+            Toast newToast = Toast.makeText(this, "Please select a user type", Toast.LENGTH_SHORT);
+            newToast.show();
+
             return false;
         }
 
-        User test = new User(name, email, password);
+        User test = Auth.findUser(new User(name, email, password));
 
-        if (!(Auth.findUser(test).equals(new User()))) {
-            Toast.makeText(this, "user name already in use", Toast.LENGTH_SHORT).show();
+        if (!(test.equals(new User()))) {
+            Toast newToast = Toast.makeText(this, "user name already in use", Toast.LENGTH_SHORT);
+            newToast.show();
             return false;
         }
 

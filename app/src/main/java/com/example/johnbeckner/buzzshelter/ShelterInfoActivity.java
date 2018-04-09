@@ -11,11 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * Shelter details activity
- * @author team
- * @version 1.0
- */
 public class ShelterInfoActivity extends AppCompatActivity {
     Shelter info;
 
@@ -33,13 +28,13 @@ public class ShelterInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_info);
 
-        name = findViewById(R.id.shelterName);
-        capacity = findViewById(R.id.shelterCap);
-        address = findViewById(R.id.shelterAddress);
-        restrictions = findViewById(R.id.shelterRes);
-        phone = findViewById(R.id.shelterPhone);
+        name = (TextView) findViewById(R.id.shelterName);
+        capacity = (TextView) findViewById(R.id.shelterCap);
+        address = (TextView) findViewById(R.id.shelterAddress);
+        restrictions = (TextView) findViewById(R.id.shelterRes);
+        phone = (TextView) findViewById(R.id.shelterPhone);
         reserveButton = findViewById(R.id.reserveButton);
-        dropReserveButton = findViewById(R.id.DropReservation);
+        dropReserveButton = (Button) findViewById(R.id.DropReservation);
         returnButton = findViewById(R.id.returnButton);
 
         info = getIntent().getParcelableExtra("shelter_info");

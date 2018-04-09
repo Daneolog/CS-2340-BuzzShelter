@@ -9,7 +9,7 @@ public enum UserType {
     SHELTER_EMPLOYEE ("Shelter Employee"),
     ADMIN("Admin");
 
-    private String name;
+    private final String name;
 
     UserType(String name) {
         this.name = name;

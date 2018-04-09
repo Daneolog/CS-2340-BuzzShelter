@@ -19,7 +19,7 @@ public class Shelter implements Parcelable, Serializable {
         FAMILY    (2),
         APARTMENT (4);
 
-        private int numBeds;
+        private final int numBeds;
         ShelterType(int numBeds) {
             this.numBeds = numBeds;
         }
@@ -33,7 +33,7 @@ public class Shelter implements Parcelable, Serializable {
     private String address;
     private String phoneNumber;
     private String notes;
-    private HashMap<String, Integer> reservations;
+    private final HashMap<String, Integer> reservations;
 
     /**
      * Creates a new Shelter
@@ -216,15 +216,17 @@ public class Shelter implements Parcelable, Serializable {
         if (this == that) {
             return true;
         }
-        if (that == null || !(that instanceof Shelter)) {
+        if ((that == null) || !(that instanceof Shelter)) {
             return false;
         }
         Shelter thatShelter = (Shelter) that;
-
+        String shelterName = this.getShelterName();
+        String address = this.getAddress();
+        String phoneNumber = this.getPhoneNumber()
         return (
-                this.getShelterName().equals(thatShelter.getShelterName())
-                && this.getAddress().equals(thatShelter.getAddress())
-                && this.getPhoneNumber().equals(thatShelter.getPhoneNumber()));
+                shelterName.equals(thatShelter.getShelterName())
+                && address.equals(thatShelter.getAddress())
+                && phoneNumber.equals(thatShelter.getPhoneNumber()));
     }
 
     /**

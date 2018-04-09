@@ -13,11 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-/**
- * Shelter reservation activity
- * @author team
- * @version 1.0
- */
 public class ReserveActivity extends AppCompatActivity {
 
     @Override
@@ -52,7 +47,7 @@ public class ReserveActivity extends AppCompatActivity {
                 temp.setName(user);
                 User userInList = Auth.findUser(temp);
 
-                if ("DEFAULT".equals(userInList.getName())) {
+                if (userInList.getName().equals("DEFAULT")) {
                     Toast.makeText(this, "You're not logged in!", Toast.LENGTH_LONG).show();
                     return;
                 }

@@ -2,6 +2,7 @@ package com.example.johnbeckner.buzzshelter;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -31,8 +32,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        FragmentManager fragMan = getSupportFragmentManager();
+        SupportMapFragment mapFragment = (SupportMapFragment) fragMan.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
@@ -56,7 +57,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(atlanta));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel));
 
-        if (!ShelterList.getFilteredList().isEmpty()) {
+        ArrayList<Shelter> filteredList = ShelterList.getFilteredList();
+        if (!filteredList.isEmpty()) {
             shelterList = ShelterList.getFilteredList();
         } else {
             shelterList = ShelterList.getShelters();
@@ -67,8 +69,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Log.e(s.getShelterName(), s.getLatitude() + " " + s.getLongitude());
 
-            mMap.addMarker(new MarkerOptions().position(loc).title(s.getShelterName())
-                    .snippet(s.getRestrictions()));
+            MarkerOptions marOpt = new MarkerOptions();
+            marOpt = marOpt.position(loc);
+            marOpt = marOpt.title(s.getShelterName());
+            mMap.addMarker(marOpt.snippet(s.getRestrictions()));
         }
     }
 }

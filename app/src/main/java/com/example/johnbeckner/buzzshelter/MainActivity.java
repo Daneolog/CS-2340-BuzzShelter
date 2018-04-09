@@ -2,6 +2,7 @@ package com.example.johnbeckner.buzzshelter;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
@@ -43,11 +44,13 @@ public class MainActivity extends AppCompatActivity {
         file = new File(this.getFilesDir(), "data.bin");
         Map = findViewById(R.id.Map);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null && extras.containsKey("Filtered Shelter List")) {
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if ((extras != null) && extras.containsKey("Filtered Shelter List")) {
             filteredList = extras.getParcelableArrayList("Filtered Shelter List");
         } else {
-            ShelterList.parseDatabase(this.getResources().openRawResource(R.raw.shelterdatabase));
+            Resources resources = this.getResources();
+            ShelterList.parseDatabase(resources.openRawResource(R.raw.shelterdatabase));
             filteredList = ShelterList.getShelters();
         }
 
@@ -61,21 +64,22 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog.Builder logoutAlt = new AlertDialog.Builder(MainActivity.this);
                 logoutAlt.setTitle("Logout?");
-                logoutAlt.setMessage("Do you want to log out?").setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                bs.saveBinary(file);
-                                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                                finish();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // dismiss the alert
-                            }
-                        });
+                logoutAlt.setMessage("Do you want to log out?");
+                logoutAlt.setCancelable(false);
+                logoutAlt.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        bs.saveBinary(file);
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                });
+                logoutAlt.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // dismiss the alert
+                    }
+                });
                 AlertDialog alert = logoutAlt.create();
                 alert.show();
             }

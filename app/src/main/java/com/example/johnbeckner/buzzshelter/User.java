@@ -132,7 +132,8 @@ public class User implements Serializable {
             return false;
         }
         User u1 = (User) obj;
-        if (this.getName().equalsIgnoreCase(u1.getName())) {
+        String name = this.getName();
+        if (name.equalsIgnoreCase(u1.getName())) {
             return true;
         } else {
             return false;
@@ -142,9 +143,9 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 47 * hash + name.hashCode();
-        hash = 47 * hash + id.hashCode();
-        hash = 47 * hash + password.hashCode();
+        hash = (47 * hash) + name.hashCode();
+        hash = (47 * hash) + id.hashCode();
+        hash = (47 * hash) + password.hashCode();
         return hash;
     }
 
