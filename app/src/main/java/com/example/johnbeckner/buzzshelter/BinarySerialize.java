@@ -27,9 +27,9 @@ class BinarySerialize implements Serializable {
      * Creates new BinarySerialize object
      */
     public BinarySerialize() {
-        Shelters = new ArrayList<Shelter>();
-        FilteredList = new ArrayList<Shelter>();
-        UserList = new ArrayList<User>();
+        Shelters = new ArrayList<>();
+        FilteredList = new ArrayList<>();
+        UserList = new ArrayList<>();
     }
 
     /**
@@ -97,7 +97,7 @@ class BinarySerialize implements Serializable {
      * @param file binary file to save data to
      * @return success of binary file serialization
      */
-    public boolean saveBinary(File file) {
+    public void saveBinary(File file) {
         boolean success = true;
         try {
             ObjectOutput out = new ObjectOutputStream(new FileOutputStream(file));
@@ -108,7 +108,6 @@ class BinarySerialize implements Serializable {
             Log.e("UserManagerFacade", "Error writing an entry from binary file",e);
             success = false;
         }
-        return success;
     }
 
     /**
@@ -116,7 +115,7 @@ class BinarySerialize implements Serializable {
      * @param file binary file to load data from
      * @return success of binary file load
      */
-    public boolean loadBinary(File file) {
+    public void loadBinary(File file) {
         boolean success = true;
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
@@ -132,7 +131,6 @@ class BinarySerialize implements Serializable {
             Log.e("UserManagementFacade", "Error casting a class from the binary file",e);
             success = false;
         }
-        return success;
     }
 
 }

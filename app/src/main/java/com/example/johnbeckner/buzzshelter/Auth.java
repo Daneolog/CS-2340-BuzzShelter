@@ -109,7 +109,7 @@ class Auth implements Serializable {
             return new User();
         }
         if (find == null) {
-            throw new IllegalArgumentException("input canot be null");
+            throw new IllegalArgumentException("input cannot be null");
         }
         for (User u : users) {
             if (u.equals(find)) {

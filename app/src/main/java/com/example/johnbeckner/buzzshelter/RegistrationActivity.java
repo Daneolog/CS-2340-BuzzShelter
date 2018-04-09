@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,48 +35,43 @@ public class RegistrationActivity extends AppCompatActivity {
         userTypeValue = findViewById(R.id.RegSpinner);
 
         userTypeValue = findViewById(R.id.RegSpinner);
-        userTypeValue.setAdapter(new ArrayAdapter<UserType>(this,
+        userTypeValue.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, UserType.values()));
 
         Button mRegisterUser = findViewById(R.id.registerButton2);
-        mRegisterUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (validInputs()) {
-                    Editable nameText = name.getText();
-                    Editable emailText = email.getText();
-                    Editable passText = password.getText();
-                    User newUser = new User(
-                            nameText.toString(),
-                            emailText.toString(),
-                            passText.toString(),
-                            (UserType) userTypeValue.getSelectedItem());
-                    Auth.addUser(newUser);
-                    if (Auth.authenticate(nameText.toString(),
-                            passText.toString()) != null) {
-                        // is new user is able to login
-                        Context settingCon = getApplicationContext();
-                        SharedPreferences settings = settingCon.getSharedPreferences("User", 0);
-                        SharedPreferences.Editor editor = settings.edit();
+        mRegisterUser.setOnClickListener(view -> {
+            if (validInputs()) {
+                Editable nameText = name.getText();
+                Editable emailText = email.getText();
+                Editable passText = password.getText();
+                User newUser = new User(
+                        nameText.toString(),
+                        emailText.toString(),
+                        passText.toString(),
+                        (UserType) userTypeValue.getSelectedItem());
+                Auth.addUser(newUser);
+                if (Auth.authenticate(nameText.toString(),
+                        passText.toString()) != null) {
+                    // is new user is able to login
+                    Context settingCon = getApplicationContext();
+                    SharedPreferences settings = settingCon.getSharedPreferences("User", 0);
+                    SharedPreferences.Editor editor = settings.edit();
 
-                        editor.putString("fullName", newUser.getName());
-                        editor.apply();
-                        startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
-                    }
+                    editor.putString("fullName", newUser.getName());
+                    editor.apply();
+                    startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                 }
             }
         });
 
         Button mCancelButton = findViewById(R.id.cancelButton);
-        mCancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(RegistrationActivity.this, LaunchActivity.class));
-                finish();
-            }
+        mCancelButton.setOnClickListener(view -> {
+            startActivity(new Intent(RegistrationActivity.this, LaunchActivity.class));
+            finish();
         });
     }
 
+    @SuppressWarnings("OverlyLongMethod")
     private boolean validInputs() {
 
         Editable nameText = this.name.getText();

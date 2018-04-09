@@ -1,18 +1,21 @@
 package com.example.johnbeckner.buzzshelter;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * Reservation activity for User
+ * @author team
+ * @version 1.0
+ */
 @SuppressWarnings("OverlyLongMethod")
 public class ReserveActivity extends AppCompatActivity {
 
@@ -43,7 +46,7 @@ public class ReserveActivity extends AppCompatActivity {
                 temp.setName(user);
                 User userInList = Auth.findUser(temp);
 
-                if (userInList != null ? userInList.getName().equals("DEFAULT") : false) {
+                if ((userInList != null) ? "DEFAULT".equals(userInList.getName()) : false) {
                     Toast.makeText(this, "You're not logged in!", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -64,13 +67,10 @@ public class ReserveActivity extends AppCompatActivity {
                             setResult(Activity.RESULT_OK, returnIntent);
                             finish();
                         })
-                        .setNegativeButton("No", (di, i) -> {
-                            Toast.makeText(this, "You have not reserved a spot.", Toast.LENGTH_LONG).show();
-                        });
+                        .setNegativeButton("No", (di, i) -> Toast.makeText(this, "You have not reserved a spot.", Toast.LENGTH_LONG).show());
 
                 builder.show();
             }
-//            }
         });
 
         cancelButton.setOnClickListener(v -> {

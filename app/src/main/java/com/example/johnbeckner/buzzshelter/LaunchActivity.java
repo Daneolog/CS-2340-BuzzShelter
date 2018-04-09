@@ -3,7 +3,6 @@ package com.example.johnbeckner.buzzshelter;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import java.io.File;
@@ -20,7 +19,7 @@ public class LaunchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
 
-        final Button mlogin_Button = findViewById(R.id.Login_Button);
+        final Button mLogin_Button = findViewById(R.id.Login_Button);
         final Button mRegister_Button = findViewById(R.id.Register_Button);
 
         File file = new File(this.getFilesDir(), "data.bin");
@@ -29,12 +28,8 @@ public class LaunchActivity extends AppCompatActivity {
             bs.loadBinary(file);
         }
 
-        mlogin_Button.setOnClickListener(v -> {
-            startActivity(new Intent(LaunchActivity.this, LoginActivity.class));
-        });
+        mLogin_Button.setOnClickListener(v -> startActivity(new Intent(LaunchActivity.this, LoginActivity.class)));
 
-        mRegister_Button.setOnClickListener(v -> {
-            startActivity(new Intent(LaunchActivity.this, RegistrationActivity.class));
-        });
+        mRegister_Button.setOnClickListener(v -> startActivity(new Intent(LaunchActivity.this, RegistrationActivity.class)));
     }
 }

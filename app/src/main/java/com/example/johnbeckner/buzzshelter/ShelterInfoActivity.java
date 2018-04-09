@@ -7,23 +7,27 @@ import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
-;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Objects;
 
+/**
+ * Shelter details activity
+ * @author team
+ * @version 1.0
+ */
 public class ShelterInfoActivity extends AppCompatActivity {
-    Shelter info;
+    private Shelter info;
 
-    TextView name;
-    TextView capacity;
-    TextView address;
-    TextView restrictions;
-    TextView phone;
-    Button reserveButton;
-    Button dropReserveButton;
-    Button returnButton;
+    private TextView name;
+    private TextView capacity;
+    private TextView address;
+    private TextView restrictions;
+    private TextView phone;
+    private Button reserveButton;
+    private Button dropReserveButton;
+    private Button returnButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +77,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
             startActivityForResult(intent, 1);
         });
 
-        returnButton.setOnClickListener(v -> {
-            finish();
-        });
+        returnButton.setOnClickListener(v -> finish());
     }
 
     @Override

@@ -1,14 +1,10 @@
 package com.example.johnbeckner.buzzshelter;
-import android.location.Address;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
 import java.util.AbstractMap;
 import java.util.HashMap;
-import java.util.Scanner;
-import java.io.File;
-import java.util.ArrayList;
 
 /**
  *
@@ -72,7 +68,7 @@ public class Shelter implements Parcelable, Serializable {
      * Creates a new shelter based on parcelable object
      * @param in parcel
      */
-    protected Shelter(Parcel in) {
+    private Shelter(Parcel in) {
         String[] data = new String[8];
 
         in.readStringArray(data);
@@ -236,7 +232,7 @@ public class Shelter implements Parcelable, Serializable {
      * @param user name of user to put reservation under
      * @param count number of reserved spots
      */
-    public void addReservation(String user, int count) {
+    private void addReservation(String user, int count) {
         if (reservations.containsKey(user)) {
             reservations.put(user, reservations.get(user) + count);
         } else {

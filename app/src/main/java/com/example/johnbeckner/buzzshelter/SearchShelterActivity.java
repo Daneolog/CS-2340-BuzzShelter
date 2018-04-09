@@ -3,7 +3,6 @@ package com.example.johnbeckner.buzzshelter;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,28 +27,25 @@ public class SearchShelterActivity extends AppCompatActivity {
 
         shelterName = findViewById(R.id.NameField);
         genderSpinner = findViewById(R.id.GenderSpinner);
-        genderSpinner.setAdapter(new ArrayAdapter<Gender>(this,
+        genderSpinner.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, Gender.values()));
         ageSpinner = findViewById(R.id.AgeSpinner);
-        ageSpinner.setAdapter((new ArrayAdapter<AgeRange>(this,
+        ageSpinner.setAdapter((new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, AgeRange.values())));
         searchButton = findViewById(R.id.Search);
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String nameFilter = "" + shelterName.getText();
-                Object selectedGenderSpinner = genderSpinner.getSelectedItem();
-                String genderFilter = ((Gender) selectedGenderSpinner).toString();
-                Object selectedAgeRange = ageSpinner.getSelectedItem();
-                String ageRangeFilter = ((AgeRange) selectedAgeRange).toString();
+        searchButton.setOnClickListener(view -> {
+            String nameFilter = "" + shelterName.getText();
+            Object selectedGenderSpinner = genderSpinner.getSelectedItem();
+            String genderFilter = ((Gender) selectedGenderSpinner).toString();
+            Object selectedAgeRange = ageSpinner.getSelectedItem();
+            String ageRangeFilter = ((AgeRange) selectedAgeRange).toString();
 
-                ShelterList.filterShelters(nameFilter, genderFilter, ageRangeFilter);
+            ShelterList.filterShelters(nameFilter, genderFilter, ageRangeFilter);
 
-                Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                intent.putParcelableArrayListExtra("Filtered Shelter List", ShelterList.getFilteredList());
-                startActivity(intent);
-            }
+            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            intent.putParcelableArrayListExtra("Filtered Shelter List", ShelterList.getFilteredList());
+            startActivity(intent);
         });
 
     }

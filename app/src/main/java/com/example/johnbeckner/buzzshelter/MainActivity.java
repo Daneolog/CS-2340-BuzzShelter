@@ -1,6 +1,5 @@
 package com.example.johnbeckner.buzzshelter;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -10,8 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
@@ -33,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private File file;
     private BinarySerialize bs;
 
-    @SuppressWarnings("FeatureEnvy") // Fixing this warning would require us to re-write ShelterList
+    @SuppressWarnings({"FeatureEnvy", "OverlyLongMethod"}) // Fixing this warning would require us to re-write ShelterList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,65 +58,47 @@ public class MainActivity extends AppCompatActivity {
                 Auth.getUsers());
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder logoutAlt = new AlertDialog.Builder(MainActivity.this);
-                logoutAlt.setTitle("Logout?");
-                logoutAlt.setMessage("Do you want to log out?");
-                logoutAlt.setCancelable(false);
-                logoutAlt.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        bs.saveBinary(file);
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                        finish();
-                    }
-                });
-                logoutAlt.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // dismiss the alert
-                    }
-                });
-                AlertDialog alert = logoutAlt.create();
-                alert.show();
-            }
+        fab.setOnClickListener(view -> {
+            AlertDialog.Builder logoutAlt = new AlertDialog.Builder(MainActivity.this);
+            logoutAlt.setTitle("Logout?");
+            logoutAlt.setMessage("Do you want to log out?");
+            logoutAlt.setCancelable(false);
+            logoutAlt.setPositiveButton("Yes", (dialogInterface, i) -> {
+                bs.saveBinary(file);
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                finish();
+            });
+            logoutAlt.setNegativeButton("No", (dialogInterface, i) -> {
+                // dismiss the alert
+            });
+            AlertDialog alert = logoutAlt.create();
+            alert.show();
         });
 
-        ListAdapter arrayAdapter = new ArrayAdapter<Shelter>(
+        ListAdapter arrayAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
                 filteredList
         );
         ShelterLV.setAdapter(arrayAdapter);
 
-        ShelterLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Shelter pressed = (Shelter) ShelterLV.getItemAtPosition(i);
-                Intent intent = new Intent(getBaseContext(), ShelterInfoActivity.class);
-                intent.putExtra("shelter_info", (Parcelable) pressed);
-                startActivity(intent);
-            }
+        ShelterLV.setOnItemClickListener((adapterView, view, i, l) -> {
+            Shelter pressed = (Shelter) ShelterLV.getItemAtPosition(i);
+            Intent intent13 = new Intent(getBaseContext(), ShelterInfoActivity.class);
+            intent13.putExtra("shelter_info", (Parcelable) pressed);
+            startActivity(intent13);
         });
 
-        Filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), SearchShelterActivity.class);
-                intent.putExtra("shelterlist", filteredList);
-                startActivity(intent);
-            }
+        Filter.setOnClickListener(view -> {
+            Intent intent12 = new Intent(getBaseContext(), SearchShelterActivity.class);
+            intent12.putExtra("shelter_list", filteredList);
+            startActivity(intent12);
         });
 
-        Map.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), SearchShelterActivity.class);
-                intent.putExtra("shelter List", filteredList);
-                startActivity(new Intent(MainActivity.this, MapsActivity.class));
-            }
+        Map.setOnClickListener(view -> {
+            Intent intent1 = new Intent(getBaseContext(), SearchShelterActivity.class);
+            intent1.putExtra("shelter_list", filteredList);
+            startActivity(new Intent(MainActivity.this, MapsActivity.class));
         });
     }
 
