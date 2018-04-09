@@ -80,7 +80,7 @@ class ShelterList {
                 Shelter newShelter = new Shelter();
                 newShelter.setShelterName(split[1]);
 
-                if ((split[2] == null) || "".equals(split[2]) || !split[2].matches("[a-zA-Z]*\\d+[a-zA-z]*")) {
+                if ((split[2] == null) || !split[2].matches("[a-zA-Z]*\\d+[a-zA-z]*")) {
                     newShelter.setCapacity(0);
                 } else {
                     Scanner scanner = new Scanner(split[2]);
