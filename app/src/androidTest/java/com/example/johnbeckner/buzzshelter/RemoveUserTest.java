@@ -30,7 +30,7 @@ public class RemoveUserTest {
     }
 
     @Test
-    public void testUserIDNull() {
+    public void testRemoveUser() {
         assertFalse(Auth.removeUser(null));
         Auth.addUser(test);
 
