@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private File file;
     private BinarySerialize bs;
 
-    @SuppressWarnings({"FeatureEnvy", "OverlyLongMethod"}) // Fixing this warning would require us to re-write ShelterList
+    // Fixing this warning would require us to re-write ShelterList
+    @SuppressWarnings({"FeatureEnvy", "OverlyLongMethod"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -89,7 +89,8 @@ public class RegistrationActivity extends AppCompatActivity {
             newToast.show();
             return false;
         }else if (email.matches("")) {
-            // we can also check if the email is a valid email here, but for now I'm just making sure it exists
+            // we can also check if the email is a valid email here, but for now I'm just making
+            // sure it exists
             Toast newToast = Toast.makeText(this, "Please enter an email", Toast.LENGTH_SHORT);
             newToast.show();
             return false;

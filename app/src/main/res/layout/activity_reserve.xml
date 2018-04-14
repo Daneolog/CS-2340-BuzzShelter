@@ -24,7 +24,8 @@
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
         android:ems="10"
-        android:inputType="number" />
+        android:inputType="number"
+        tools:targetApi="cupcake" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -34,19 +35,22 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/confirmButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Reserve" />
-
-        <Button
             android:id="@+id/dismissButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_weight="1"
-            android:text="Cancel" />
+            android:text="Cancel"
+            style="?android:attr/buttonBarButtonStyle" />
+
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Reserve"
+            style="?android:attr/buttonBarButtonStyle" />
+
     </LinearLayout>
 
 </RelativeLayout>

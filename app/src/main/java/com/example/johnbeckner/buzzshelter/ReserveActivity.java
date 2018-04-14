@@ -36,11 +36,12 @@ public class ReserveActivity extends AppCompatActivity {
 
             int count = Integer.parseInt(input);
             if (count > shelterInList.getCapacity()) {
-                Toast.makeText(this, "Unfortunately, there are not that many available reservations",
+                Toast.makeText(this, "Unfortunately, there aren't that many available reservations",
                         Toast.LENGTH_LONG).show();
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
+                SharedPreferences settings = getApplicationContext().
+                        getSharedPreferences("User", 0);
                 String user = settings.getString("fullName", "DEFAULT");
                 User temp = new User();
                 temp.setName(user);
@@ -52,22 +53,26 @@ public class ReserveActivity extends AppCompatActivity {
                 }
 
                 if (userInList.isHasReservation()) {
-                    Toast.makeText(this, "You already have a reservation", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "You already have a reservation",
+                            Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 builder.setMessage("Are you sure?")
                         .setPositiveButton("Yes", (di, i) -> {
-                            shelterInList.reserve(user, Integer.parseInt(numReserve.getText().toString()));
+                            shelterInList.reserve(user,
+                                    Integer.parseInt(numReserve.getText().toString()));
                             userInList.setHasReservation(true);
-                            Toast.makeText(this, "You have successfully reserved a spot.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, "You have successfully reserved a spot.",
+                                    Toast.LENGTH_LONG).show();
 
                             Intent returnIntent = new Intent();
                             returnIntent.putExtra("result", (Parcelable) shelterInList);
                             setResult(Activity.RESULT_OK, returnIntent);
                             finish();
                         })
-                        .setNegativeButton("No", (di, i) -> Toast.makeText(this, "You have not reserved a spot.", Toast.LENGTH_LONG).show());
+                        .setNegativeButton("No", (di, i) -> Toast.makeText(this,
+                                "You have not reserved a spot.", Toast.LENGTH_LONG).show());
 
                 builder.show();
             }

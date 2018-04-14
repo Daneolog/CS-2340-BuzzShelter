@@ -25,7 +25,7 @@ class Auth implements Serializable {
      * @param users ArrayList to set users to
      */
     public static void setUsers(ArrayList<User> users) {
-        Auth.users = users;
+        Auth.users = new ArrayList<>(users);
     }
 
     /**

@@ -163,7 +163,7 @@ class ShelterList {
      * @param filteredList filtered shelter list to set to
      */
     public static void setFilteredList(ArrayList<Shelter> filteredList) {
-        FilteredList = filteredList;
+        FilteredList = new ArrayList<>(filteredList);
     }
 
     /**
@@ -172,7 +172,8 @@ class ShelterList {
      * @param gender gender to filter by
      * @param ageRange age range to filter by
      */
-    @SuppressWarnings("FeatureEnvy") // I don't think this is feature envy, we only call on Shelter twice in the method
+    // I don't think this is feature envy, we only call on Shelter twice in the method
+    @SuppressWarnings("FeatureEnvy")
     public static void filterShelters(String name, String gender, String ageRange) {
 
         FilteredList = new ArrayList<>();
@@ -195,19 +196,14 @@ class ShelterList {
                 FilteredList.remove(s);
             }
             // filter gender
-            if ("Anyone".equals(gender)) {
-                gender = "";
-            }
-            if (!(s.getRestrictions().contains(gender))) {
+            String gender2 = "Anyone".equalsIgnoreCase(gender) ? "" : gender;
+            if (!(s.getRestrictions().contains(gender2))) {
                 FilteredList.remove(s);
             }
 
             // filter age range
-            if ("Anyone".equals(ageRange)) {
-                ageRange = "";
-            }
-            if (!(s.getRestrictions().toLowerCase()
-                    .contains(ageRange.toLowerCase()))) {
+            String ageRange2 = "Anyone".equalsIgnoreCase(ageRange) ? "" : ageRange;
+            if (!(s.getRestrictions().toLowerCase().contains(ageRange2.toLowerCase()))) {
                 FilteredList.remove(s);
             }
         }

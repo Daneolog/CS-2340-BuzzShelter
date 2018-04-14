@@ -41,7 +41,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="User Name"
-                    android:inputType="textPersonName" />
+                    android:inputType="textEmailAddress"
+                    tools:targetApi="cupcake" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -59,7 +60,8 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    tools:targetApi="cupcake" />
 
             </android.support.design.widget.TextInputLayout>
 

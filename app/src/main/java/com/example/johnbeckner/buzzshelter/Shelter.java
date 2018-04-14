@@ -43,9 +43,11 @@ public class Shelter implements Parcelable, Serializable {
      * @param phoneNumber  phone number of shelter
      * @param notes        special notes about shelter
      */
-    @SuppressWarnings("ConstructorWithTooManyParameters") // this method is used when parsing the database of shelters
+    // this method is used when parsing the database of shelters
+    @SuppressWarnings("ConstructorWithTooManyParameters")
     public Shelter(String shelterName, int capacity, String restrictions,
-                   double longitude, double latitude, String address, String phoneNumber, String notes) {
+                   double longitude, double latitude, String address, String phoneNumber,
+                   String notes) {
         this.shelterName = shelterName;
         this.capacity = capacity;
         this.restrictions = restrictions;
@@ -243,7 +245,7 @@ public class Shelter implements Parcelable, Serializable {
     /**
      * @return reservations HashMap
      */
-    public HashMap<String, Integer> getReservations() { return (HashMap<String, Integer>) reservations; }
+    public AbstractMap<String, Integer> getReservations() { return reservations; }
 
     /**
      * @return string representation of shelter

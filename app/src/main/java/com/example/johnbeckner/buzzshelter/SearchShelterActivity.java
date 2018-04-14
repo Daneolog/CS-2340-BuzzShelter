@@ -44,7 +44,8 @@ public class SearchShelterActivity extends AppCompatActivity {
             ShelterList.filterShelters(nameFilter, genderFilter, ageRangeFilter);
 
             Intent intent = new Intent(getBaseContext(), MainActivity.class);
-            intent.putParcelableArrayListExtra("Filtered Shelter List", ShelterList.getFilteredList());
+            intent.putParcelableArrayListExtra("Filtered Shelter List",
+                    ShelterList.getFilteredList());
             startActivity(intent);
         });
 

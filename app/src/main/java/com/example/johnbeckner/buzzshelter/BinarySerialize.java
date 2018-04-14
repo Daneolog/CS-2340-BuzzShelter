@@ -38,10 +38,11 @@ class BinarySerialize implements Serializable {
      * @param FilteredList filtered list of shelters
      * @param UserList list of users
      */
-    public BinarySerialize(ArrayList<Shelter> Shelters, ArrayList<Shelter> FilteredList, ArrayList<User> UserList) {
-        this.Shelters = Shelters;
-        this.FilteredList = FilteredList;
-        this.UserList = UserList;
+    public BinarySerialize(ArrayList<Shelter> Shelters, ArrayList<Shelter> FilteredList,
+                           ArrayList<User> UserList) {
+        this.Shelters = new ArrayList<>(Shelters);
+        this.FilteredList = new ArrayList<>(FilteredList);
+        this.UserList = new ArrayList<>(UserList);
     }
 
     /**
@@ -73,7 +74,7 @@ class BinarySerialize implements Serializable {
      * @param shelters ArrayList to set shelters to
      */
     public void setShelters(ArrayList<Shelter> shelters) {
-        Shelters = shelters;
+        Shelters = new ArrayList<>(shelters);
     }
 
     /**

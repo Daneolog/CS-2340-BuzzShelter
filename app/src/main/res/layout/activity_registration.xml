@@ -20,7 +20,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.248"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="cupcake" />
 
     <EditText
         android:id="@+id/email_text_field"
@@ -35,7 +36,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.248"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_text_field" />
+        app:layout_constraintTop_toBottomOf="@+id/name_text_field"
+        tools:targetApi="cupcake" />
 
     <EditText
         android:id="@+id/password_text_field"
@@ -50,7 +52,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.248"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_text_field" />
+        app:layout_constraintTop_toBottomOf="@+id/email_text_field"
+        tools:targetApi="cupcake" />
 
     <Button
         android:id="@+id/cancelButton"

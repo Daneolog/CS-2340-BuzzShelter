@@ -28,8 +28,10 @@ public class LaunchActivity extends AppCompatActivity {
             bs.loadBinary(file);
         }
 
-        mLogin_Button.setOnClickListener(v -> startActivity(new Intent(LaunchActivity.this, LoginActivity.class)));
+        mLogin_Button.setOnClickListener(v ->
+                startActivity(new Intent(LaunchActivity.this, LoginActivity.class)));
 
-        mRegister_Button.setOnClickListener(v -> startActivity(new Intent(LaunchActivity.this, RegistrationActivity.class)));
+        mRegister_Button.setOnClickListener(v ->
+                startActivity(new Intent(LaunchActivity.this, RegistrationActivity.class)));
     }
 }

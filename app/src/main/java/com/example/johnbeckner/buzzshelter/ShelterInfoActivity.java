@@ -47,7 +47,8 @@ public class ShelterInfoActivity extends AppCompatActivity {
         setShelterInfo();
     }
 
-    @SuppressWarnings("FeatureEnvy") // I don't think this is feature envy, we only call on Shelter twice in the method
+    // I don't think this is feature envy, we only call on Shelter twice in the method
+    @SuppressWarnings("FeatureEnvy")
     private void setShelterInfo() {
         name.setText(info.getShelterName());
         capacity.setText(String.format("%d\nThis has been reserved by %s",
@@ -67,7 +68,8 @@ public class ShelterInfoActivity extends AppCompatActivity {
                 Toast.makeText(this, "Successfully dropped reservation", Toast.LENGTH_LONG).show();
                 recreate();
             } else {
-                Toast.makeText(this, "You don't have a reservation at this shelter.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "You don't have a reservation at this shelter.",
+                        Toast.LENGTH_LONG).show();
             }
         });
 

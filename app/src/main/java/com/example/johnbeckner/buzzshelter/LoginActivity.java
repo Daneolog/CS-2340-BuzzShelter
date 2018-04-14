@@ -68,7 +68,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(view -> attemptLogin());
 
         Button mCancelButton = (Button) findViewById(R.id.cancel_action);
-        mCancelButton.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this, LaunchActivity.class)));
+        mCancelButton.setOnClickListener(view ->
+                startActivity(new Intent(LoginActivity.this, LaunchActivity.class)));
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -155,7 +156,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
     }
 
-    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection") // I honestly have no idea how to fix this
+    // I honestly have no idea how to fix this
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         Collection<String> emails = new ArrayList<>();
@@ -205,12 +207,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
             showProgress(false);
 
             if (success) {
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
+                SharedPreferences settings = getApplicationContext().
+                        getSharedPreferences("User", 0);
                 SharedPreferences.Editor editor = settings.edit();
 
                 editor.putString("fullName", mUser.getName());
@@ -225,7 +227,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected void onCancelled() {
-            mAuthTask = null;
             showProgress(false);
         }
     }
