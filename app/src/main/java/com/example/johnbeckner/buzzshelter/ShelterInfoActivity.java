@@ -1,6 +1,7 @@
 package com.example.johnbeckner.buzzshelter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Parcelable;
@@ -10,7 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Shelter details activity
@@ -34,16 +37,17 @@ public class ShelterInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_info);
 
-        name = (TextView) findViewById(R.id.shelterName);
-        capacity = (TextView) findViewById(R.id.shelterCap);
-        address = (TextView) findViewById(R.id.shelterAddress);
-        restrictions = (TextView) findViewById(R.id.shelterRes);
-        phone = (TextView) findViewById(R.id.shelterPhone);
+        name = findViewById(R.id.shelterName);
+        capacity = findViewById(R.id.shelterCap);
+        address = findViewById(R.id.shelterAddress);
+        restrictions = findViewById(R.id.shelterRes);
+        phone = findViewById(R.id.shelterPhone);
         reserveButton = findViewById(R.id.reserveButton);
-        dropReserveButton = (Button) findViewById(R.id.DropReservation);
+        dropReserveButton = findViewById(R.id.DropReservation);
         returnButton = findViewById(R.id.returnButton);
 
-        info = getIntent().getParcelableExtra("shelter_info");
+        Intent intent = getIntent();
+        info = intent.getParcelableExtra("shelter_info");
         setShelterInfo();
     }
 
@@ -51,25 +55,33 @@ public class ShelterInfoActivity extends AppCompatActivity {
     @SuppressWarnings("FeatureEnvy")
     private void setShelterInfo() {
         name.setText(info.getShelterName());
+        Map<String, Integer> reservation = info.getReservations();
+        Set<String> keys = reservation.keySet();
         capacity.setText(String.format("%d\nThis has been reserved by %s",
-                info.getCapacity(), info.getReservations().keySet().toString()));
+                info.getCapacity(), keys.toString()));
         address.setText(info.getAddress());
         restrictions.setText(info.getRestrictions());
         phone.setText(info.getPhoneNumber());
 
-        SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
+        Context appCon = getApplicationContext();
+        SharedPreferences settings = appCon.getSharedPreferences("User", 0);
         String user = settings.getString("fullName", "DEFAULT");
 
         dropReserveButton.setOnClickListener(v -> {
             if (info.dropReservation(user)) {
                 User temp = new User();
                 temp.setName(user);
-                Objects.requireNonNull(Auth.findUser(temp)).setHasReservation(false);
-                Toast.makeText(this, "Successfully dropped reservation", Toast.LENGTH_LONG).show();
+                User findUsr = Auth.findUser(temp);
+                User nonNull = Objects.requireNonNull(findUsr);
+                nonNull.setHasReservation(false);
+                Toast toast = Toast.makeText(this, "Successfully dropped reservation",
+                        Toast.LENGTH_LONG);
+                toast.show();
                 recreate();
             } else {
-                Toast.makeText(this, "You don't have a reservation at this shelter.",
-                        Toast.LENGTH_LONG).show();
+                Toast toast = Toast.makeText(this, "You don't have a reservation at this shelter.",
+                        Toast.LENGTH_LONG);
+                toast.show();
             }
         });
 

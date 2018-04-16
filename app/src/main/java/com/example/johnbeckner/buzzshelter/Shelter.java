@@ -245,7 +245,9 @@ public class Shelter implements Parcelable, Serializable {
     /**
      * @return reservations HashMap
      */
-    public AbstractMap<String, Integer> getReservations() { return reservations; }
+    public HashMap<String,Integer> getReservations() {
+        return (HashMap<String, Integer>) (reservations);
+    }
 
     /**
      * @return string representation of shelter

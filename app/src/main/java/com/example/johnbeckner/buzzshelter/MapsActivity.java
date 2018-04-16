@@ -21,9 +21,8 @@ import java.util.List;
  */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    private final double techGreenLat = 33.774737;
     private final double techGreenLng = -84.397406;
+    private  final double techGreenLat = 33.774737;
     private final float zoomLevel = 10.0f;
 
     @Override
@@ -49,13 +48,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @SuppressWarnings("FeatureEnvy") // Fixing this warning would require us to re-write ShelterList
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
         Iterable<Shelter> shelterList;
 
-        // Add a marker in Sydney and move the camera
         LatLng atlanta = new LatLng(techGreenLat, techGreenLng);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(atlanta));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(atlanta));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel));
 
         List<Shelter> filteredList = ShelterList.getFilteredList();
         if (!filteredList.isEmpty()) {
@@ -72,7 +69,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             MarkerOptions marOpt = new MarkerOptions();
             marOpt = marOpt.position(loc);
             marOpt = marOpt.title(s.getShelterName());
-            mMap.addMarker(marOpt.snippet(s.getRestrictions()));
+            googleMap.addMarker(marOpt.snippet(s.getRestrictions()));
         }
     }
 }

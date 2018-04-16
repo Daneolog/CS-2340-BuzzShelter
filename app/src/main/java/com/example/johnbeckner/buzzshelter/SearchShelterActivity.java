@@ -18,7 +18,6 @@ public class SearchShelterActivity extends AppCompatActivity {
     private EditText shelterName;
     private Spinner genderSpinner;
     private Spinner ageSpinner;
-    private Button searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +31,14 @@ public class SearchShelterActivity extends AppCompatActivity {
         ageSpinner = findViewById(R.id.AgeSpinner);
         ageSpinner.setAdapter((new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, AgeRange.values())));
-        searchButton = findViewById(R.id.Search);
+        Button searchButton = findViewById(R.id.Search);
 
         searchButton.setOnClickListener(view -> {
             String nameFilter = "" + shelterName.getText();
             Object selectedGenderSpinner = genderSpinner.getSelectedItem();
-            String genderFilter = ((Gender) selectedGenderSpinner).toString();
+            String genderFilter = selectedGenderSpinner.toString();
             Object selectedAgeRange = ageSpinner.getSelectedItem();
-            String ageRangeFilter = ((AgeRange) selectedAgeRange).toString();
+            String ageRangeFilter = selectedAgeRange.toString();
 
             ShelterList.filterShelters(nameFilter, genderFilter, ageRangeFilter);
 

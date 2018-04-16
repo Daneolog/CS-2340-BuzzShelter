@@ -18,10 +18,9 @@ import java.util.ArrayList;
 
 class BinarySerialize implements Serializable {
 
-    private ArrayList<Shelter> Shelters;
-    private ArrayList<Shelter> FilteredList;
-    private ArrayList<User> UserList;
-    private BinarySerialize bs;
+    private final ArrayList<Shelter> Shelters;
+    private final ArrayList<Shelter> FilteredList;
+    private final ArrayList<User> UserList;
 
     /**
      * Creates new BinarySerialize object
@@ -69,29 +68,35 @@ class BinarySerialize implements Serializable {
         return UserList;
     }
 
-    /**
-     * Setter for shelters list
-     * @param shelters ArrayList to set shelters to
-     */
-    public void setShelters(ArrayList<Shelter> shelters) {
-        Shelters = new ArrayList<>(shelters);
-    }
+// --Commented out by Inspection START (4/15/2018 9:57 PM):
+//    /**
+//     * Setter for shelters list
+//     * @param shelters ArrayList to set shelters to
+//     */
+//    public void setShelters(ArrayList<Shelter> shelters) {
+//        Shelters = new ArrayList<>(shelters);
+//    }
+// --Commented out by Inspection STOP (4/15/2018 9:57 PM)
 
-    /**
-     * Setter for filtered shelters list
-     * @param filteredList ArrayList to set filtered shelters to
-     */
-    public void setFilteredList(ArrayList<Shelter> filteredList) {
-        FilteredList = filteredList;
-    }
+// --Commented out by Inspection START (4/15/2018 9:57 PM):
+//    /**
+//     * Setter for filtered shelters list
+//     * @param filteredList ArrayList to set filtered shelters to
+//     */
+//    public void setFilteredList(ArrayList<Shelter> filteredList) {
+//        FilteredList = filteredList;
+//    }
+// --Commented out by Inspection STOP (4/15/2018 9:57 PM)
 
-    /**
-     * Setter for users list
-     * @param userList ArrayList to set users to
-     */
-    public void setUserList(ArrayList<User> userList) {
-        UserList = userList;
-    }
+// --Commented out by Inspection START (4/15/2018 9:57 PM):
+//    /**
+//     * Setter for users list
+//     * @param userList ArrayList to set users to
+//     */
+//    public void setUserList(ArrayList<User> userList) {
+//        UserList = userList;
+//    }
+// --Commented out by Inspection STOP (4/15/2018 9:57 PM)
 
     /**
      * Saves data to binary file
@@ -107,7 +112,6 @@ class BinarySerialize implements Serializable {
             out.close();
         } catch (IOException e) {
             Log.e("UserManagerFacade", "Error writing an entry from binary file",e);
-            success = false;
         }
     }
 
@@ -120,17 +124,15 @@ class BinarySerialize implements Serializable {
         boolean success = true;
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-            bs = (BinarySerialize) in.readObject();
+            BinarySerialize bs = (BinarySerialize) in.readObject();
             Auth.setUsers(bs.getUserList());
             ShelterList.setShelters(bs.getShelters());
             ShelterList.setFilteredList(bs.getFilteredList());
             in.close();
         } catch (IOException e) {
             Log.e("UserManagementFacade", "Error reading an entry from binary file",e);
-            success = false;
         } catch (ClassNotFoundException e) {
             Log.e("UserManagementFacade", "Error casting a class from the binary file",e);
-            success = false;
         }
     }
 

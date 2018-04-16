@@ -3,7 +3,9 @@ package com.example.johnbeckner.buzzshelter;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -16,7 +18,9 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Editable;
 import android.view.View;
+import android.view.ViewPropertyAnimator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,13 +33,14 @@ import java.util.Collection;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world", "user:pass"
-    };
+// --Commented out by Inspection START (4/15/2018 9:57 PM):
+//    /**
+//     * A dummy authentication store containing known user names and passwords.
+//     */
+//    private static final String[] DUMMY_CREDENTIALS = new String[]{
+//            "foo@example.com:hello", "bar@example.com:world", "user:pass"
+//    };
+// --Commented out by Inspection STOP (4/15/2018 9:57 PM)
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -53,9 +58,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mEmailView = (EditText) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if ((id == EditorInfo.IME_ACTION_DONE) || (id == EditorInfo.IME_NULL)) {
                 attemptLogin();
@@ -64,10 +69,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             return false;
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(view -> attemptLogin());
 
-        Button mCancelButton = (Button) findViewById(R.id.cancel_action);
+        Button mCancelButton = findViewById(R.id.cancel_action);
         mCancelButton.setOnClickListener(view ->
                 startActivity(new Intent(LoginActivity.this, LaunchActivity.class)));
 
@@ -90,8 +95,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        Editable emailText = mEmailView.getText();
+        String email = emailText.toString();
+        Editable passText = mPasswordView.getText();
+        String password = passText.toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -111,32 +118,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        Resources res = getResources();
+        int shortAnimTime = res.getInteger(android.R.integer.config_shortAnimTime);
 
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
+        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        ViewPropertyAnimator animation = mLoginFormView.animate();
+        animation = animation.setDuration(shortAnimTime);
+        animation.alpha(show ? 0 : 1);
+        animation.setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
 
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        ViewPropertyAnimator animation1 = mProgressView.animate();
+        animation1.alpha(show ? 1 : 0);
+        animation1.setListener(new AnimatorListenerAdapter() {
+             @Override
+             public void onAnimationEnd(Animator animation) {
+                 mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+             }
+         });
     }
 
     @Override
@@ -181,14 +185,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         };
 
         int ADDRESS = 0;
-        int IS_PRIMARY = 1;
+        // --Commented out by Inspection (4/15/2018 9:57 PM):int IS_PRIMARY = 1;
     }
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
         private final String mPassword;
@@ -211,8 +215,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                SharedPreferences settings = getApplicationContext().
-                        getSharedPreferences("User", 0);
+                Context con = getApplicationContext();
+                SharedPreferences settings = con.getSharedPreferences("User", 0);
                 SharedPreferences.Editor editor = settings.edit();
 
                 editor.putString("fullName", mUser.getName());

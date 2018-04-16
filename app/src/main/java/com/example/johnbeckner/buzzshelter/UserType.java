@@ -15,12 +15,14 @@ public enum UserType {
         this.name = name;
     }
 
-    /**
-     * @return string value of user type
-     */
-    public String getName() {
-        return name;
-    }
+// --Commented out by Inspection START (4/15/2018 9:57 PM):
+//    /**
+//     * @return string value of user type
+//     */
+//    public String getName() {
+//        return name;
+//    }
+// --Commented out by Inspection STOP (4/15/2018 9:57 PM)
 
     @Override
     public String toString() {

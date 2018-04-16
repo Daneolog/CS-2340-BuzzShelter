@@ -17,7 +17,7 @@ class Auth implements Serializable {
      * @return ArrayList of users
      */
     public static ArrayList<User> getUsers() {
-        return users;
+        return (users);
     }
 
     /**
@@ -49,20 +49,22 @@ class Auth implements Serializable {
         return null;
     }
 
-    /**
-     * Adds a user to database
-     * @param name name of user to add
-     * @param ID id to add
-     * @param password password of user to add
-     * @param userType user type (general user, shelter employee, or admin)
-     */
-    public static void addUser(String name, String ID, String password, UserType userType) {
-        if (users == null) {
-            users = new ArrayList<>();
-        }
-        User temp = new User(name, ID, password, userType);
-        users.add(temp);
-    }
+// --Commented out by Inspection START (4/15/2018 9:57 PM):
+//    /**
+//     * Adds a user to database
+//     * @param name name of user to add
+//     * @param ID id to add
+//     * @param password password of user to add
+//     * @param userType user type (general user, shelter employee, or admin)
+//     */
+//    public static void addUser(String name, String ID, String password, UserType userType) {
+//        if (users == null) {
+//            users = new ArrayList<>();
+//        }
+//        User temp = new User(name, ID, password, userType);
+//        users.add(temp);
+//    }
+// --Commented out by Inspection STOP (4/15/2018 9:57 PM)
 
     /**
      * Adds new user to database
@@ -75,29 +77,31 @@ class Auth implements Serializable {
         users.add(newUser);
     }
 
-    /**
-     * Removes user from database
-     * @param ID id of user to remove
-     * @return whether user was removed
-     */
-    public static boolean removeUser(String ID) {
-        if ((users == null) || (users.isEmpty())) {
-            return false;
-        }
-        int index = -1;
-        for (User user : users) {
-            if (ID.equals(user.getId())) {
-                index = users.indexOf(user);
-                break;
-            }
-        }
-        if (index == -1) {
-            return false; // user not found
-        } else {
-            users.remove(index);
-            return true; // user found and removed
-        }
-    }
+// --Commented out by Inspection START (4/15/2018 9:57 PM):
+//    /**
+//     * Removes user from database
+//     * @param ID id of user to remove
+//     * @return whether user was removed
+//     */
+//    public static boolean removeUser(String ID) {
+//        if ((users == null) || (users.isEmpty())) {
+//            return false;
+//        }
+//        int index = -1;
+//        for (User user : users) {
+//            if (ID.equals(user.getId())) {
+//                index = users.indexOf(user);
+//                break;
+//            }
+//        }
+//        if (index == -1) {
+//            return false; // user not found
+//        } else {
+//            users.remove(index);
+//            return true; // user found and removed
+//        }
+//    }
+// --Commented out by Inspection STOP (4/15/2018 9:57 PM)
 
     /**
      * Finds and returns user

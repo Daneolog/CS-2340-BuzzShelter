@@ -82,7 +82,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String name = nameText.toString();
         String email = emailText.toString();
         String password = passText.toString();
-        String type = ((UserType) uTypeValSDelected).toString();
+        String type = uTypeValSDelected.toString();
 
         if (name.matches("")) {
             Toast newToast = Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT);

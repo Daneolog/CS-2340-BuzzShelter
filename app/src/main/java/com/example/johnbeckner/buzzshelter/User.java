@@ -10,9 +10,9 @@ public class User implements Serializable {
 
     private boolean hasReservation;
     private String name;
-    private String id;
-    private String password;
-    private UserType userType;
+    private final String id;
+    private final String password;
+    private final UserType userType;
 
     /**
      * Creates new user
@@ -71,12 +71,14 @@ public class User implements Serializable {
         return id;
     }
 
-    /**
-     * @param id id to set to
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+// --Commented out by Inspection START (4/15/2018 9:57 PM):
+//    /**
+//     * @param id id to set to
+//     */
+//    public void setId(String id) {
+//        this.id = id;
+//    }
+// --Commented out by Inspection STOP (4/15/2018 9:57 PM)
 
     /**
      * @return password of user
@@ -85,26 +87,32 @@ public class User implements Serializable {
         return password;
     }
 
-    /**
-     * @param password password to set to
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+// --Commented out by Inspection START (4/15/2018 9:57 PM):
+//    /**
+//     * @param password password to set to
+//     */
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
+// --Commented out by Inspection STOP (4/15/2018 9:57 PM)
 
-    /**
-     * @return user type
-     */
-    public UserType getUserType() {
-        return userType;
-    }
+// --Commented out by Inspection START (4/15/2018 9:57 PM):
+//    /**
+//     * @return user type
+//     */
+//    public UserType getUserType() {
+//        return userType;
+//    }
+// --Commented out by Inspection STOP (4/15/2018 9:57 PM)
 
-    /**
-     * @param userType user type to set to
-     */
-    public void setUserType(UserType userType) {
-        this.userType = userType;
-    }
+// --Commented out by Inspection START (4/15/2018 9:57 PM):
+//    /**
+//     * @param userType user type to set to
+//     */
+//    public void setUserType(UserType userType) {
+//        this.userType = userType;
+//    }
+// --Commented out by Inspection STOP (4/15/2018 9:57 PM)
 
     /**
      * @return if current user has reservation
@@ -133,11 +141,7 @@ public class User implements Serializable {
         }
         User u1 = (User) obj;
         String name = this.getName();
-        if (name.equalsIgnoreCase(u1.getName())) {
-            return true;
-        } else {
-            return false;
-        }
+        return name.equalsIgnoreCase(u1.getName());
     }
 
     @Override

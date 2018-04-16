@@ -3,7 +3,6 @@ package com.example.johnbeckner.buzzshelter;
 import android.util.Log;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -68,7 +67,7 @@ class ShelterList {
             br.readLine(); // remove the first line
             while ((line = br.readLine()) != null) {
 
-                Log.e("line", line.toString());
+                Log.e("line", line);
 
                 String[] split = line.split(";");
                 for (int i = 0; i < split.length; i++) {
@@ -101,8 +100,6 @@ class ShelterList {
                 newShelter.setPhoneNumber(split[split.length - 1]);
                 addShelter(newShelter);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -123,7 +120,7 @@ class ShelterList {
      * @return shelter list
      */
     public static ArrayList<Shelter> getShelters() {
-        return Shelters;
+        return (Shelters);
     }
 
     /**
@@ -156,7 +153,7 @@ class ShelterList {
      * @return filtered shelter list
      */
     public static ArrayList<Shelter> getFilteredList() {
-        return FilteredList;
+        return (FilteredList);
     }
 
     /**
@@ -192,18 +189,23 @@ class ShelterList {
 
         for (Shelter s : Shelters) {
             // filter by name
-            if (!(s.getShelterName().toLowerCase().contains(name.toLowerCase()))) {
+            String sName = s.getShelterName();
+            sName = sName.toLowerCase();
+            if (!(sName.contains(name.toLowerCase()))) {
                 FilteredList.remove(s);
             }
             // filter gender
             String gender2 = "Anyone".equalsIgnoreCase(gender) ? "" : gender;
-            if (!(s.getRestrictions().contains(gender2))) {
+            String sRes = s.getRestrictions();
+            if (!(sRes.contains(gender2))) {
                 FilteredList.remove(s);
             }
 
             // filter age range
+            String sRange = s.getRestrictions();
+            sRange = sRange.toLowerCase();
             String ageRange2 = "Anyone".equalsIgnoreCase(ageRange) ? "" : ageRange;
-            if (!(s.getRestrictions().toLowerCase().contains(ageRange2.toLowerCase()))) {
+            if (!(sRange.contains(ageRange2.toLowerCase()))) {
                 FilteredList.remove(s);
             }
         }

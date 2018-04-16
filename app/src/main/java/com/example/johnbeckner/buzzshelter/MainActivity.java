@@ -25,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Shelter> filteredList;
 
     private ListView ShelterLV;
-    private Button Filter;
-    private Button Map;
     private File file;
     private BinarySerialize bs;
 
@@ -39,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ShelterLV = findViewById(R.id.List);
-        Filter = findViewById(R.id.FilterButton);
+        Button filter = findViewById(R.id.FilterButton);
         filteredList = new ArrayList<>();
         file = new File(this.getFilesDir(), "data.bin");
-        Map = findViewById(R.id.Map);
+        Button map = findViewById(R.id.Map);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -90,13 +88,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent13);
         });
 
-        Filter.setOnClickListener(view -> {
+        filter.setOnClickListener(view -> {
             Intent intent12 = new Intent(getBaseContext(), SearchShelterActivity.class);
             intent12.putExtra("shelter_list", filteredList);
             startActivity(intent12);
         });
 
-        Map.setOnClickListener(view -> {
+        map.setOnClickListener(view -> {
             Intent intent1 = new Intent(getBaseContext(), SearchShelterActivity.class);
             intent1.putExtra("shelter_list", filteredList);
             startActivity(new Intent(MainActivity.this, MapsActivity.class));
