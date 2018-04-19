@@ -79,7 +79,7 @@ public class User implements Serializable {
     }
 
     public boolean getBanned() { return this.banned; }
-    public void setBanned(boolean ban) {this.banned = ban;}
+    public void toggleBanned() { banned = !banned; }
 
     @Override
     public boolean equals(Object obj) {
