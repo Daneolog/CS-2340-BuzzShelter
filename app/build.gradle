@@ -31,6 +31,14 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
+        pickFirst 'META-INF/LICENSE.txt' // picks the JavaMail license file
+    }
+}
+
+repositories {
+    jcenter()
+    maven {
+        url "https://maven.java.net/content/groups/public/"
     }
 }
 
@@ -46,4 +54,6 @@ dependencies {
     implementation 'org.junit.jupiter:junit-jupiter-api'
     implementation 'org.junit.jupiter:junit-jupiter-api'
     implementation 'org.junit.jupiter:junit-jupiter-api:5.0.0'
+    implementation 'com.sun.mail:android-mail:1.6.0'
+    implementation 'com.sun.mail:android-activation:1.6.0'
 }

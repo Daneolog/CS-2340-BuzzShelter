@@ -88,4 +88,16 @@ public class Auth implements Serializable {
         Log.e("Find Shelter", "input shelter not in list");
         return new User();
     }
+
+    public static User findUser(String email) {
+        if (users == null || users.isEmpty()) {
+            return null;
+        }
+
+        for (User u : users)
+            if (u.getId().equals(email))
+                return u;
+
+        return null;
+    }
 }
