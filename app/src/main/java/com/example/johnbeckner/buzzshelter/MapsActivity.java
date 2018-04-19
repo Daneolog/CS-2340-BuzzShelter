@@ -1,9 +1,16 @@
 package com.example.johnbeckner.buzzshelter;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,9 +24,31 @@ import java.util.ArrayList;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private final double techGreenLat = 33.774737;
-    private final double techGreenLng = -84.397406;
+    private double currentLat = 33.774737;
+    private double currentLng = -84.397406;
     private final float zoomLevel = 10.0f;
+    private final LocationListener ll = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            currentLat = location.getLatitude();
+            currentLng = location.getLongitude();
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +73,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        Iterable<Shelter> shelterList = new ArrayList<>();
+        Iterable<Shelter> shelterList;
 
         // Add a marker in Sydney and move the camera
-        LatLng atlanta = new LatLng(techGreenLat, techGreenLng);
+        LatLng atlanta = new LatLng(currentLat, currentLng);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(atlanta));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel));
 
@@ -64,6 +93,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             mMap.addMarker(new MarkerOptions().position(loc).title(s.getShelterName())
                     .snippet(s.getRestrictions()));
+        }
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            Location l = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, ll);
+            mMap.addMarker(new MarkerOptions().position(new LatLng(currentLat, currentLng)));
         }
     }
 }

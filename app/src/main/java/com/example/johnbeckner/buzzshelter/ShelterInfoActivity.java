@@ -1,15 +1,21 @@
 package com.example.johnbeckner.buzzshelter;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 ;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 public class ShelterInfoActivity extends AppCompatActivity {
     Shelter info;
@@ -18,7 +24,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
     TextView capacity;
     TextView address;
     TextView restrictions;
-    TextView phone;
+    Button phone;
     Button reserveButton;
     Button dropReserveButton;
     Button returnButton;
@@ -28,13 +34,13 @@ public class ShelterInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_info);
 
-        name = (TextView) findViewById(R.id.shelterName);
-        capacity = (TextView) findViewById(R.id.shelterCap);
-        address = (TextView) findViewById(R.id.shelterAddress);
-        restrictions = (TextView) findViewById(R.id.shelterRes);
-        phone = (TextView) findViewById(R.id.shelterPhone);
+        name = findViewById(R.id.shelterName);
+        capacity = findViewById(R.id.shelterCap);
+        address = findViewById(R.id.shelterAddress);
+        restrictions = findViewById(R.id.shelterRes);
+        phone = findViewById(R.id.shelterPhone);
         reserveButton = findViewById(R.id.reserveButton);
-        dropReserveButton = (Button) findViewById(R.id.DropReservation);
+        dropReserveButton = findViewById(R.id.DropReservation);
         returnButton = findViewById(R.id.returnButton);
 
         info = getIntent().getParcelableExtra("shelter_info");
@@ -43,7 +49,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
 
     private void setShelterInfo() {
         name.setText(info.getShelterName());
-        capacity.setText(String.format("%d\nThis has been reserved by %s",
+        capacity.setText(String.format(Locale.ENGLISH, "%d\nThis has been reserved by %s",
                 info.getCapacity(), info.getReservations().keySet().toString()));
         address.setText(info.getAddress());
         restrictions.setText(info.getRestrictions());
@@ -51,6 +57,17 @@ public class ShelterInfoActivity extends AppCompatActivity {
 
         SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
         String user = settings.getString("fullName", "DEFAULT");
+
+        phone.setOnClickListener(v ->
+        {
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + phone.getText()));
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                startActivity(callIntent);
+            }
+        });
 
         dropReserveButton.setOnClickListener(v -> {
             if (info.dropReservation(user)) {
