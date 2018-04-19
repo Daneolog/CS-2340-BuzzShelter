@@ -13,9 +13,12 @@ public class User implements Serializable {
     private String id;
     private String password;
     private UserType userType;
+    private boolean banned;
+
 
     public User(String name, String id, String password) {
         hasReservation = false;
+        banned = false;
         this.name = name;
         this.id = id;
         this.password = password;
@@ -24,6 +27,7 @@ public class User implements Serializable {
 
     public User(String name, String id, String password, UserType userType) {
         hasReservation = false;
+        banned = false;
         this.name = name;
         this.id = id;
         this.password = password;
@@ -73,6 +77,9 @@ public class User implements Serializable {
     public void setHasReservation(boolean hasReservation) {
         this.hasReservation = hasReservation;
     }
+
+    public boolean getBanned() { return this.banned; }
+    public void setBanned(boolean ban) {this.banned = ban;}
 
     @Override
     public boolean equals(Object obj) {

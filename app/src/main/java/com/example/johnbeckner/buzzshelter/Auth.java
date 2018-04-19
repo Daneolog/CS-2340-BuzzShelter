@@ -32,7 +32,11 @@ public class Auth implements Serializable {
         for(User user : users) {
             if(username.equalsIgnoreCase(user.getId())) {
                 if(password.equals(user.getPassword())) {
-                    return user;
+                    if (user.getBanned() == false){
+                        return user;
+                    } else {
+                        System.out.print(user + " is banned please contact Admin.");
+                    }
                 }
             }
         }
@@ -88,4 +92,11 @@ public class Auth implements Serializable {
         Log.e("Find Shelter", "input shelter not in list");
         return new User();
     }
+    public static void ban(User user) {
+        user.setBanned(true);
+    }
+    public static void unban(User user) {
+        user.setBanned(false);
+    }
+
 }
