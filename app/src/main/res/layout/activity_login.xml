@@ -80,6 +80,12 @@
                 android:layout_marginTop="16dp"
                 android:text="Cancel"
                 android:textStyle="" />
+
+            <Button
+                android:id="@+id/forgotButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Forgot Password" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
