@@ -32,10 +32,8 @@ public class Auth implements Serializable {
         for(User user : users) {
             if(username.equalsIgnoreCase(user.getId())) {
                 if(password.equals(user.getPassword())) {
-                    if (user.getBanned() == false){
+                    if (!user.getBanned()){
                         return user;
-                    } else {
-                        System.out.print(user + " is banned please contact Admin.");
                     }
                 }
             }
@@ -93,6 +91,7 @@ public class Auth implements Serializable {
         return new User();
     }
     public static void ban(User user) {
+
         user.setBanned(true);
     }
     public static void unban(User user) {

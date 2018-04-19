@@ -230,7 +230,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                if (mUser.getUserType() == UserType.ADMIN) {
+                    startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+                } else {
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                }
                 SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
                 SharedPreferences.Editor editor = settings.edit();
 
