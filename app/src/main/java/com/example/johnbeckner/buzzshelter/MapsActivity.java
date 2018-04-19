@@ -3,6 +3,7 @@ package com.example.johnbeckner.buzzshelter;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -16,7 +17,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -27,11 +30,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double currentLat = 33.774737;
     private double currentLng = -84.397406;
     private final float zoomLevel = 10.0f;
+    private Marker usrLoc;
     private final LocationListener ll = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
             currentLat = location.getLatitude();
             currentLng = location.getLongitude();
+            LatLng newLoc = new LatLng(currentLat, currentLng);
+            usrLoc.setPosition(newLoc);
         }
 
         @Override
@@ -79,6 +85,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng atlanta = new LatLng(currentLat, currentLng);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(atlanta));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel));
+        LatLng userLatLng = new LatLng(currentLat, currentLng);
+        MarkerOptions usrOpts = new MarkerOptions();
+        usrOpts.position(userLatLng);
+        usrOpts.title("Your location");
+        usrOpts.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        usrLoc = mMap.addMarker(usrOpts);
 
         if (!ShelterList.getFilteredList().isEmpty()) {
             shelterList = ShelterList.getFilteredList();
@@ -88,9 +100,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         for (Shelter s : shelterList) {
             LatLng loc = new LatLng(s.getLatitude(), s.getLongitude());
-
-            Log.e(s.getShelterName(), s.getLatitude() + " " + s.getLongitude());
-
             mMap.addMarker(new MarkerOptions().position(loc).title(s.getShelterName())
                     .snippet(s.getRestrictions()));
         }
