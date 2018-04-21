@@ -43,6 +43,10 @@ public class RegistrationActivity extends AppCompatActivity {
                             email.getText().toString(),
                             password.getText().toString(),
                             (UserType) userTypeValue.getSelectedItem());
+
+
+                    Log.e("new user", name.getText().toString() + " " + userTypeValue.getSelectedItem().toString());
+
                     Auth.addUser(newUser);
                     if (Auth.authenticate(name.getText().toString(),
                             password.getText().toString()) != null) {

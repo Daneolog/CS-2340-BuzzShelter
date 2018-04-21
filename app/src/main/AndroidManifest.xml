@@ -46,7 +46,11 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".ForgotActivity"></activity>
+        <activity android:name=".ForgotActivity" />
+        <activity
+            android:name=".MainAdminActivity"
+            android:label="@string/title_activity_main_admin"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

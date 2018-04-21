@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +52,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private int attempts;
+    Button mEmailSignInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.email);
+        attempts = 0;
+        File file = new File(this.getFilesDir(), "data.bin");
+        BinarySerialize bs = new BinarySerialize();
+
+        if (Auth.getUsers().isEmpty()) {
+            bs.loadBinary(file);
+        }
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -70,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -230,17 +241,32 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
-                SharedPreferences.Editor editor = settings.edit();
+                if ((mUser.getUserType() == UserType.ADMIN) && (!mUser.isBanned())) {
+                    startActivity(new Intent(LoginActivity.this, MainAdminActivity.class));
+                } else if (!(mUser.isBanned())) {
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    SharedPreferences settings = getApplicationContext().getSharedPreferences("User", 0);
+                    SharedPreferences.Editor editor = settings.edit();
 
-                editor.putString("fullName", mUser.getName());
-                editor.apply();
+                    editor.putString("fullName", mUser.getName());
+                    editor.apply();
 
-                finish();
+                    finish();
+                } else {
+                    mEmailSignInButton.setEnabled(false);
+                    mPasswordView.setError("Your account has been banned" +
+                            "\nContact an administrator");
+                }
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                attempts ++;
+                if (attempts >= 3) {
+                    mEmailSignInButton.setEnabled(false);
+                    mPasswordView.setError("To many failed login attempts " +
+                            "\nPlease try again later");
+                } else {
+                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+                    mPasswordView.requestFocus();
+                }
             }
         }
 
